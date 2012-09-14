@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "labMath", "labMath\labMath.vcxproj", "{9758B90D-AE80-4D2C-A607-8B521CF33B5E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "labTest", "labTest\labTest.vcxproj", "{D3BEF4BA-9DCD-4895-A479-521F65399521}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "labCore", "labCore\labCore.vcxproj", "{03201828-8B45-4B10-8AD6-C3EB8E7F42AD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9758B90D-AE80-4D2C-A607-8B521CF33B5E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9758B90D-AE80-4D2C-A607-8B521CF33B5E}.Debug|Win32.Build.0 = Debug|Win32
+		{9758B90D-AE80-4D2C-A607-8B521CF33B5E}.Release|Win32.ActiveCfg = Release|Win32
+		{9758B90D-AE80-4D2C-A607-8B521CF33B5E}.Release|Win32.Build.0 = Release|Win32
+		{D3BEF4BA-9DCD-4895-A479-521F65399521}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D3BEF4BA-9DCD-4895-A479-521F65399521}.Debug|Win32.Build.0 = Debug|Win32
+		{D3BEF4BA-9DCD-4895-A479-521F65399521}.Release|Win32.ActiveCfg = Release|Win32
+		{D3BEF4BA-9DCD-4895-A479-521F65399521}.Release|Win32.Build.0 = Release|Win32
+		{03201828-8B45-4B10-8AD6-C3EB8E7F42AD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{03201828-8B45-4B10-8AD6-C3EB8E7F42AD}.Debug|Win32.Build.0 = Debug|Win32
+		{03201828-8B45-4B10-8AD6-C3EB8E7F42AD}.Release|Win32.ActiveCfg = Release|Win32
+		{03201828-8B45-4B10-8AD6-C3EB8E7F42AD}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
