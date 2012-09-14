@@ -5,10 +5,117 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="lcGraphics">
+      <UniqueIdentifier>{4a62f948-ec72-4da8-bc8b-24d20fe0d273}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lcInput">
+      <UniqueIdentifier>{48617782-8ebf-4119-8ad8-c3ad3d99d13f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lcPrimatives">
+      <UniqueIdentifier>{874db339-f7a0-4970-b71d-1bb07bfe98df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lcProperties">
+      <UniqueIdentifier>{ec43d0e6-727f-4744-ba19-500ebc2f8b89}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lcCore\lcCore.cpp">
       <Filter>lcCore</Filter>
     </ClCompile>
+    <ClCompile Include="lcCore\AppBase.cpp">
+      <Filter>lcCore</Filter>
+    </ClCompile>
+    <ClCompile Include="lcCore\Application.cpp">
+      <Filter>lcCore</Filter>
+    </ClCompile>
+    <ClCompile Include="lcCore\Node.cpp">
+      <Filter>lcCore</Filter>
+    </ClCompile>
+    <ClCompile Include="lcCore\Timers.cpp">
+      <Filter>lcCore</Filter>
+    </ClCompile>
+    <ClCompile Include="lcCore\Utilities.cpp">
+      <Filter>lcCore</Filter>
+    </ClCompile>
+    <ClCompile Include="lcCore\Window.cpp">
+      <Filter>lcCore</Filter>
+    </ClCompile>
+    <ClCompile Include="lcGraphics\DX11Camera.cpp">
+      <Filter>lcGraphics</Filter>
+    </ClCompile>
+    <ClCompile Include="lcGraphics\DX11Renderer.cpp">
+      <Filter>lcGraphics</Filter>
+    </ClCompile>
+    <ClCompile Include="lcInput\Keyboard.cpp">
+      <Filter>lcInput</Filter>
+    </ClCompile>
+    <ClCompile Include="lcInput\Mouse.cpp">
+      <Filter>lcInput</Filter>
+    </ClCompile>
+    <ClCompile Include="lcPrimatives\Mesh.cpp">
+      <Filter>lcPrimatives</Filter>
+    </ClCompile>
+    <ClCompile Include="lcProperties\Property.cpp">
+      <Filter>lcProperties</Filter>
+    </ClCompile>
+    <ClCompile Include="lcProperties\ShaderProprerty.cpp">
+      <Filter>lcProperties</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="lcCore\AppBase.h">
+      <Filter>lcCore</Filter>
+    </ClInclude>
+    <ClInclude Include="lcCore\Application.h">
+      <Filter>lcCore</Filter>
+    </ClInclude>
+    <ClInclude Include="lcCore\Node.h">
+      <Filter>lcCore</Filter>
+    </ClInclude>
+    <ClInclude Include="lcCore\Timers.h">
+      <Filter>lcCore</Filter>
+    </ClInclude>
+    <ClInclude Include="lcCore\Utilities.h">
+      <Filter>lcCore</Filter>
+    </ClInclude>
+    <ClInclude Include="lcCore\Window.h">
+      <Filter>lcCore</Filter>
+    </ClInclude>
+    <ClInclude Include="lcGraphics\DX11Camera.h">
+      <Filter>lcGraphics</Filter>
+    </ClInclude>
+    <ClInclude Include="lcGraphics\DX11Renderer.h">
+      <Filter>lcGraphics</Filter>
+    </ClInclude>
+    <ClInclude Include="lcInput\Keyboard.h">
+      <Filter>lcInput</Filter>
+    </ClInclude>
+    <ClInclude Include="lcInput\Mouse.h">
+      <Filter>lcInput</Filter>
+    </ClInclude>
+    <ClInclude Include="lcPrimatives\Cube.h">
+      <Filter>lcPrimatives</Filter>
+    </ClInclude>
+    <ClInclude Include="lcPrimatives\Line.h">
+      <Filter>lcPrimatives</Filter>
+    </ClInclude>
+    <ClInclude Include="lcPrimatives\Matrix.h">
+      <Filter>lcPrimatives</Filter>
+    </ClInclude>
+    <ClInclude Include="lcPrimatives\Mesh.h">
+      <Filter>lcPrimatives</Filter>
+    </ClInclude>
+    <ClInclude Include="lcPrimatives\Quad.h">
+      <Filter>lcPrimatives</Filter>
+    </ClInclude>
+    <ClInclude Include="lcPrimatives\Triangle.h">
+      <Filter>lcPrimatives</Filter>
+    </ClInclude>
+    <ClInclude Include="lcProperties\Property.h">
+      <Filter>lcProperties</Filter>
+    </ClInclude>
+    <ClInclude Include="lcProperties\ShaderProperty.h">
+      <Filter>lcProperties</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

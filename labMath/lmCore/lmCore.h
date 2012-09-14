@@ -2,7 +2,7 @@
 #define	__LAB_CORE_H_
 
 #include "lmBoot.h"
-#include "lmVec4\lmVec4.h"
+#include "../lmVec4/lmVec4.h"
 
 namespace Labyrinth
 {

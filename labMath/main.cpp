@@ -1,4 +1,4 @@
-#include "lmCore.h"
+#include "lmCore/lmCore.h"
 #include <stdio.h>
 #include <crtdbg.h>
 

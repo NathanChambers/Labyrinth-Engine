@@ -1,5 +1,5 @@
 #include "lmVec4.h"
-#include "../lmCore.h"
+#include "../lmCore/lmCore.h"
 
 using namespace Labyrinth;
 
