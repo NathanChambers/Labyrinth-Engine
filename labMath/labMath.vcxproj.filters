@@ -1,28 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="lmVec4">
-      <UniqueIdentifier>{20be7937-09bd-4c62-b5ab-118027ef1155}</UniqueIdentifier>
-    </Filter>
     <Filter Include="lmCore">
       <UniqueIdentifier>{1a1f1fa1-2d11-4ea7-968c-b20f75dc1596}</UniqueIdentifier>
     </Filter>
+    <Filter Include="lmMatrices">
+      <UniqueIdentifier>{17af4011-2875-4909-98a9-88d4ee225631}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lmVectors">
+      <UniqueIdentifier>{20be7937-09bd-4c62-b5ab-118027ef1155}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="lmVec4\lmVec4.h">
-      <Filter>lmVec4</Filter>
-    </ClInclude>
     <ClInclude Include="lmCore\lmBoot.h">
       <Filter>lmCore</Filter>
     </ClInclude>
     <ClInclude Include="lmCore\lmCore.h">
       <Filter>lmCore</Filter>
     </ClInclude>
+    <ClInclude Include="lmVectors\lmVec4.h">
+      <Filter>lmVectors</Filter>
+    </ClInclude>
+    <ClInclude Include="lmVectors\lmVec3.h">
+      <Filter>lmVectors</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="lmVec4\lmVec4.cpp">
-      <Filter>lmVec4</Filter>
-    </ClCompile>
     <ClCompile Include="lmCore\lmBoot.cpp">
       <Filter>lmCore</Filter>
     </ClCompile>
@@ -30,10 +33,19 @@
       <Filter>lmCore</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="lmVectors\lmVec4.cpp">
+      <Filter>lmVectors</Filter>
+    </ClCompile>
+    <ClCompile Include="lmVectors\lmVec3.cpp">
+      <Filter>lmVectors</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="lmVec4\lmVec4.inl">
-      <Filter>lmVec4</Filter>
+    <None Include="lmVectors\lmVec4.inl">
+      <Filter>lmVectors</Filter>
+    </None>
+    <None Include="lmVectors\lmVec3.inl">
+      <Filter>lmVectors</Filter>
     </None>
   </ItemGroup>
 </Project>

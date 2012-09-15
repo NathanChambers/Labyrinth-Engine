@@ -1,6 +1,8 @@
 #include "lmVec4.h"
 #include "../lmCore/lmCore.h"
 
+#include <math.h>
+
 using namespace Labyrinth;
 
 const lmVec4 lmVec4::ZERO = lmVec4(0,0,0,1);
@@ -71,13 +73,12 @@ float std_lmVec4DotProduct(const lmVec4& ac_rkArgL,const lmVec4& ac_rkArgR)
 {
 	return ac_rkArgL.x * ac_rkArgR.x +
 		ac_rkArgL.y * ac_rkArgR.y +
-		ac_rkArgL.z * ac_rkArgR.z +
-		ac_rkArgL.w * ac_rkArgR.w;
+		ac_rkArgL.z * ac_rkArgR.z;
 }
 
 float std_lmVec4Length(const lmVec4& ac_rkArgL)
 {
-	return lmSqrt(ac_rkArgL.x * ac_rkArgL.x + 
+	return sqrtf(ac_rkArgL.x * ac_rkArgL.x + 
 		ac_rkArgL.y * ac_rkArgL.y + 
 		ac_rkArgL.z * ac_rkArgL.z + 
 		ac_rkArgL.w * ac_rkArgL.w);

@@ -10,3 +10,15 @@
 *.lai
 *.la
 *.a
+
+#Labyrinth Submit Ignores
+#Folders
+**/Debug/
+**/Release/
+Debug/
+Release/
+ipch/
+
+#Files
+*.sdf
+*.opensdf

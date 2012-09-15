@@ -11,13 +11,13 @@ void PrintVec4(const lmVec4& ac_rkArgIn)
 
 int main()
 {
-	lmVec4 kVec0(1,2,3);
-	lmVec4 kVec1(1,2,3);
+	lmVec4 kVec0(1,1,1);
+	lmVec4 kVec1(1,1,1);
 
-	float fSameDir = kVec0.DotProduct(kVec1);
+	kVec0.Normalise();
+	kVec1.Normalise();
 
-	kVec1.Set(3,2,1);
-	float fOppDir = kVec0.DotProduct(kVec1);
+	float fVAL = kVec0.DotProduct(kVec1);
 
 	_CrtDumpMemoryLeaks();
 

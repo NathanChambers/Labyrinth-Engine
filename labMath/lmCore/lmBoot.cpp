@@ -13,5 +13,6 @@ lmBoot::lmBoot()
 
 void lmBoot::Construct()
 {
+	lmVec3::Construct();
 	lmVec4::Construct();
 }
