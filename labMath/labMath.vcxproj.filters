@@ -12,23 +12,29 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="lmCore\lmBoot.h">
-      <Filter>lmCore</Filter>
-    </ClInclude>
     <ClInclude Include="lmCore\lmCore.h">
       <Filter>lmCore</Filter>
     </ClInclude>
     <ClInclude Include="lmVectors\lmVec4.h">
       <Filter>lmVectors</Filter>
     </ClInclude>
+    <ClInclude Include="lmCore\lmBoot.h">
+      <Filter>lmCore</Filter>
+    </ClInclude>
+    <ClInclude Include="lmMatrices\lmMatrix3.h">
+      <Filter>lmMatrices</Filter>
+    </ClInclude>
     <ClInclude Include="lmVectors\lmVec3.h">
       <Filter>lmVectors</Filter>
     </ClInclude>
+    <ClInclude Include="lmVectors\lmVec2.h">
+      <Filter>lmVectors</Filter>
+    </ClInclude>
+    <ClInclude Include="lmMatrices\lmMatrix4.h">
+      <Filter>lmMatrices</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="lmCore\lmBoot.cpp">
-      <Filter>lmCore</Filter>
-    </ClCompile>
     <ClCompile Include="lmCore\lmCore.cpp">
       <Filter>lmCore</Filter>
     </ClCompile>
@@ -36,8 +42,20 @@
     <ClCompile Include="lmVectors\lmVec4.cpp">
       <Filter>lmVectors</Filter>
     </ClCompile>
+    <ClCompile Include="lmCore\lmBoot.cpp">
+      <Filter>lmCore</Filter>
+    </ClCompile>
     <ClCompile Include="lmVectors\lmVec3.cpp">
       <Filter>lmVectors</Filter>
+    </ClCompile>
+    <ClCompile Include="lmMatrices\lmMatrix3.cpp">
+      <Filter>lmMatrices</Filter>
+    </ClCompile>
+    <ClCompile Include="lmVectors\lmVec2.cpp">
+      <Filter>lmVectors</Filter>
+    </ClCompile>
+    <ClCompile Include="lmMatrices\lmMatrix4.cpp">
+      <Filter>lmMatrices</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -46,6 +64,15 @@
     </None>
     <None Include="lmVectors\lmVec3.inl">
       <Filter>lmVectors</Filter>
+    </None>
+    <None Include="lmMatrices\lmMatrix3.inl">
+      <Filter>lmMatrices</Filter>
+    </None>
+    <None Include="lmVectors\lmVec2.inl">
+      <Filter>lmVectors</Filter>
+    </None>
+    <None Include="lmMatrices\lmMatrix4.inl">
+      <Filter>lmMatrices</Filter>
     </None>
   </ItemGroup>
 </Project>

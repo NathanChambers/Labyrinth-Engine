@@ -19,102 +19,93 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="lcCore\lcCore.cpp">
+    <ClCompile Include="lcCore\lcAppBase.cpp">
       <Filter>lcCore</Filter>
     </ClCompile>
-    <ClCompile Include="lcCore\AppBase.cpp">
+    <ClCompile Include="lcCore\lcNode.cpp">
       <Filter>lcCore</Filter>
     </ClCompile>
-    <ClCompile Include="lcCore\Application.cpp">
+    <ClCompile Include="lcCore\lcTimers.cpp">
       <Filter>lcCore</Filter>
     </ClCompile>
-    <ClCompile Include="lcCore\Node.cpp">
+    <ClCompile Include="lcCore\lcUtilities.cpp">
       <Filter>lcCore</Filter>
     </ClCompile>
-    <ClCompile Include="lcCore\Timers.cpp">
+    <ClCompile Include="lcCore\lcWindow.cpp">
       <Filter>lcCore</Filter>
     </ClCompile>
-    <ClCompile Include="lcCore\Utilities.cpp">
-      <Filter>lcCore</Filter>
-    </ClCompile>
-    <ClCompile Include="lcCore\Window.cpp">
-      <Filter>lcCore</Filter>
-    </ClCompile>
-    <ClCompile Include="lcGraphics\DX11Camera.cpp">
+    <ClCompile Include="lcGraphics\lcCamera.cpp">
       <Filter>lcGraphics</Filter>
     </ClCompile>
-    <ClCompile Include="lcGraphics\DX11Renderer.cpp">
+    <ClCompile Include="lcGraphics\lcRenderer.cpp">
       <Filter>lcGraphics</Filter>
     </ClCompile>
-    <ClCompile Include="lcInput\Keyboard.cpp">
+    <ClCompile Include="lcInput\lcKeyboard.cpp">
       <Filter>lcInput</Filter>
     </ClCompile>
-    <ClCompile Include="lcInput\Mouse.cpp">
+    <ClCompile Include="lcInput\lcMouse.cpp">
       <Filter>lcInput</Filter>
     </ClCompile>
-    <ClCompile Include="lcPrimatives\Mesh.cpp">
+    <ClCompile Include="lcPrimatives\lcMesh.cpp">
       <Filter>lcPrimatives</Filter>
     </ClCompile>
-    <ClCompile Include="lcProperties\Property.cpp">
+    <ClCompile Include="lcProperties\lcProperty.cpp">
       <Filter>lcProperties</Filter>
     </ClCompile>
-    <ClCompile Include="lcProperties\ShaderProprerty.cpp">
+    <ClCompile Include="lcProperties\lcShaderProperty.cpp">
       <Filter>lcProperties</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="lcCore\AppBase.h">
+    <ClInclude Include="lcCore\lcAppBase.h">
       <Filter>lcCore</Filter>
     </ClInclude>
-    <ClInclude Include="lcCore\Application.h">
+    <ClInclude Include="lcCore\lcNode.h">
       <Filter>lcCore</Filter>
     </ClInclude>
-    <ClInclude Include="lcCore\Node.h">
+    <ClInclude Include="lcCore\lcTimers.h">
       <Filter>lcCore</Filter>
     </ClInclude>
-    <ClInclude Include="lcCore\Timers.h">
+    <ClInclude Include="lcCore\lcUtilities.h">
       <Filter>lcCore</Filter>
     </ClInclude>
-    <ClInclude Include="lcCore\Utilities.h">
+    <ClInclude Include="lcCore\lcWindow.h">
       <Filter>lcCore</Filter>
     </ClInclude>
-    <ClInclude Include="lcCore\Window.h">
-      <Filter>lcCore</Filter>
-    </ClInclude>
-    <ClInclude Include="lcGraphics\DX11Camera.h">
+    <ClInclude Include="lcGraphics\lcCamera.h">
       <Filter>lcGraphics</Filter>
     </ClInclude>
-    <ClInclude Include="lcGraphics\DX11Renderer.h">
+    <ClInclude Include="lcGraphics\lcRenderer.h">
       <Filter>lcGraphics</Filter>
     </ClInclude>
-    <ClInclude Include="lcInput\Keyboard.h">
+    <ClInclude Include="lcInput\lcKeyboard.h">
       <Filter>lcInput</Filter>
     </ClInclude>
-    <ClInclude Include="lcInput\Mouse.h">
+    <ClInclude Include="lcInput\lcMouse.h">
       <Filter>lcInput</Filter>
     </ClInclude>
-    <ClInclude Include="lcPrimatives\Cube.h">
+    <ClInclude Include="lcPrimatives\lcCube.h">
       <Filter>lcPrimatives</Filter>
     </ClInclude>
-    <ClInclude Include="lcPrimatives\Line.h">
+    <ClInclude Include="lcPrimatives\lcLine.h">
       <Filter>lcPrimatives</Filter>
     </ClInclude>
-    <ClInclude Include="lcPrimatives\Matrix.h">
+    <ClInclude Include="lcPrimatives\lcMatrix.h">
       <Filter>lcPrimatives</Filter>
     </ClInclude>
-    <ClInclude Include="lcPrimatives\Mesh.h">
+    <ClInclude Include="lcPrimatives\lcMesh.h">
       <Filter>lcPrimatives</Filter>
     </ClInclude>
-    <ClInclude Include="lcPrimatives\Quad.h">
+    <ClInclude Include="lcPrimatives\lcQuad.h">
       <Filter>lcPrimatives</Filter>
     </ClInclude>
-    <ClInclude Include="lcPrimatives\Triangle.h">
+    <ClInclude Include="lcPrimatives\lcTriangle.h">
       <Filter>lcPrimatives</Filter>
     </ClInclude>
-    <ClInclude Include="lcProperties\Property.h">
+    <ClInclude Include="lcProperties\lcProperty.h">
       <Filter>lcProperties</Filter>
     </ClInclude>
-    <ClInclude Include="lcProperties\ShaderProperty.h">
+    <ClInclude Include="lcProperties\lcShaderProperty.h">
       <Filter>lcProperties</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,18 +1,21 @@
-#include "lmBoot.h"
+#include "LmBoot.h"
 #include "lmCore.h"
 
-#include <stdio.h>
-using namespace Labyrinth;
+bool LmBoot::bBooted = false;
 
-lmBoot lmBoot::m_kBoot;
-
-lmBoot::lmBoot()
+LmBoot::LmBoot()
 {
-	Construct();
+	if(!bBooted)
+	{
+		Construct();
+	}
 }
 
-void lmBoot::Construct()
+void LmBoot::Construct()
 {
-	lmVec3::Construct();
-	lmVec4::Construct();
+	LmVec2::Construct();
+	LmVec3::Construct();
+	LmVec4::Construct();
+
+	lmMatrix4::Construct();
 }

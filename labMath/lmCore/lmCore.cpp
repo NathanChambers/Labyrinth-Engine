@@ -1,14 +1,8 @@
 #include "lmCore.h"
 
-using namespace Labyrinth;
-
-float Labyrinth::lmSqrt(float a_fVal)
+__declspec (naked) float __fastcall lmSqrt(float a_dArgIn)
 {
-	_asm
-	{
-		fld a_fVal;
-		fsqrt;
-		fst a_fVal;
-	}
-	return a_fVal;
+	_asm fld dword ptr [esp+4]
+	_asm fsqrt
+	_asm ret 4
 }

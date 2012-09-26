@@ -16,7 +16,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -36,15 +36,30 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)bin\</OutDir>
+    <TargetName>$(ProjectName)_d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)bin\</OutDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>.\lmCore\;.\lmTransform\;.\lmMatrices\;.\lmVectors\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "lmCore\*.h" "..\bin\include\labMath\" /R /Y /Q
+xcopy "lmCore\*.inl" "..\bin\include\labMath\" /R /Y /Q
+xcopy "lmVectors\*.h" "..\bin\include\labMath\" /R /Y /Q
+xcopy "lmVectors\*.inl" "..\bin\include\labMath\" /R /Y /Q
+xcopy "lmMatrices\*.h" "..\bin\include\labMath\" /R /Y /Q
+xcopy "lmMatrices\*.inl" "..\bin\include\labMath\" /R /Y /Q</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -58,21 +73,34 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="lmCore\lmBoot.h" />
     <ClInclude Include="lmCore\lmCore.h" />
+    <ClInclude Include="lmMatrices\lmMatrix3.h" />
+    <ClInclude Include="lmMatrices\lmMatrix4.h" />
+    <ClInclude Include="lmVectors\lmVec2.h" />
     <ClInclude Include="lmVectors\lmVec3.h" />
     <ClInclude Include="lmVectors\lmVec4.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lmCore\lmBoot.cpp" />
     <ClCompile Include="lmCore\lmCore.cpp" />
+    <ClCompile Include="lmMatrices\lmMatrix3.cpp" />
+    <ClCompile Include="lmMatrices\lmMatrix4.cpp" />
+    <ClCompile Include="lmVectors\lmVec2.cpp" />
     <ClCompile Include="lmVectors\lmVec3.cpp" />
     <ClCompile Include="lmVectors\lmVec4.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="lmMatrices\lmMatrix3.inl" />
+    <None Include="lmMatrices\lmMatrix4.inl" />
+    <None Include="lmVectors\lmVec2.inl" />
     <None Include="lmVectors\lmVec3.inl" />
     <None Include="lmVectors\lmVec4.inl" />
   </ItemGroup>

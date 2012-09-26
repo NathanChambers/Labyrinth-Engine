@@ -4,8 +4,15 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "labMath", "labMath\labMath.vcxproj", "{9758B90D-AE80-4D2C-A607-8B521CF33B5E}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "labTest", "labTest\labTest.vcxproj", "{D3BEF4BA-9DCD-4895-A479-521F65399521}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9758B90D-AE80-4D2C-A607-8B521CF33B5E} = {9758B90D-AE80-4D2C-A607-8B521CF33B5E}
+		{03201828-8B45-4B10-8AD6-C3EB8E7F42AD} = {03201828-8B45-4B10-8AD6-C3EB8E7F42AD}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "labCore", "labCore\labCore.vcxproj", "{03201828-8B45-4B10-8AD6-C3EB8E7F42AD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9758B90D-AE80-4D2C-A607-8B521CF33B5E} = {9758B90D-AE80-4D2C-A607-8B521CF33B5E}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

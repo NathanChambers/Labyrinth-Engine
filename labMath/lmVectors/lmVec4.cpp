@@ -1,19 +1,15 @@
 #include "lmVec4.h"
-#include "../lmCore/lmCore.h"
+#include "lmCore.h"
 
-#include <math.h>
+const LmVec4 LmVec4::ZERO = LmVec4(0,0,0,1);
+const LmVec4 LmVec4::POSX = LmVec4(1,0,0,1);
+const LmVec4 LmVec4::POSY = LmVec4(0,1,0,1);
+const LmVec4 LmVec4::POSZ = LmVec4(0,0,1,1);
+const LmVec4 LmVec4::NEGX = LmVec4(-1,0,0,1);
+const LmVec4 LmVec4::NEGY = LmVec4(0,-1,0,1);
+const LmVec4 LmVec4::NEGZ = LmVec4(0,0,-1,1);
 
-using namespace Labyrinth;
-
-const lmVec4 lmVec4::ZERO = lmVec4(0,0,0,1);
-const lmVec4 lmVec4::POSX = lmVec4(1,0,0,1);
-const lmVec4 lmVec4::POSY = lmVec4(0,1,0,1);
-const lmVec4 lmVec4::POSZ = lmVec4(0,0,1,1);
-const lmVec4 lmVec4::NEGX = lmVec4(-1,0,0,1);
-const lmVec4 lmVec4::NEGY = lmVec4(0,-1,0,1);
-const lmVec4 lmVec4::NEGZ = lmVec4(0,0,-1,1);
-
-void std_lmVec4Add(lmVec4& a_rkArgOut,const lmVec4& ac_rkArgL,const lmVec4& ac_rkArgR)
+void std_lmVec4Add(LmVec4& a_rkArgOut,const LmVec4& ac_rkArgL,const LmVec4& ac_rkArgR)
 {
 	a_rkArgOut.x = ac_rkArgL.x + ac_rkArgR.x;
 	a_rkArgOut.y = ac_rkArgL.y + ac_rkArgR.y;
@@ -21,7 +17,7 @@ void std_lmVec4Add(lmVec4& a_rkArgOut,const lmVec4& ac_rkArgL,const lmVec4& ac_r
 	a_rkArgOut.w = ac_rkArgL.w + ac_rkArgR.w;
 }
 
-void std_lmVec4Sub(lmVec4& a_rkArgOut,const lmVec4& ac_rkArgL,const lmVec4& ac_rkArgR)
+void std_lmVec4Sub(LmVec4& a_rkArgOut,const LmVec4& ac_rkArgL,const LmVec4& ac_rkArgR)
 {
 	a_rkArgOut.x = ac_rkArgL.x - ac_rkArgR.x;
 	a_rkArgOut.y = ac_rkArgL.y - ac_rkArgR.y;
@@ -29,7 +25,7 @@ void std_lmVec4Sub(lmVec4& a_rkArgOut,const lmVec4& ac_rkArgL,const lmVec4& ac_r
 	a_rkArgOut.w = ac_rkArgL.w - ac_rkArgR.w;
 }
 
-void std_lmVec4Mul(lmVec4& a_rkArgOut,const lmVec4& ac_rkArgL,const float ac_fArgR)
+void std_lmVec4Mul(LmVec4& a_rkArgOut,const LmVec4& ac_rkArgL,const float ac_fArgR)
 {
 	a_rkArgOut.x = ac_rkArgL.x * ac_fArgR;
 	a_rkArgOut.y = ac_rkArgL.y * ac_fArgR;
@@ -37,7 +33,7 @@ void std_lmVec4Mul(lmVec4& a_rkArgOut,const lmVec4& ac_rkArgL,const float ac_fAr
 	a_rkArgOut.w = ac_rkArgL.w * ac_fArgR;
 }
 
-void std_lmVec4Div(lmVec4& a_rkArgOut,const lmVec4& ac_rkArgL,const float ac_fArgR)
+void std_lmVec4Div(LmVec4& a_rkArgOut,const LmVec4& ac_rkArgL,const float ac_fArgR)
 {
 	a_rkArgOut.x = ac_rkArgL.x / ac_fArgR;
 	a_rkArgOut.y = ac_rkArgL.y / ac_fArgR;
@@ -45,7 +41,7 @@ void std_lmVec4Div(lmVec4& a_rkArgOut,const lmVec4& ac_rkArgL,const float ac_fAr
 	a_rkArgOut.w = ac_rkArgL.w / ac_fArgR;
 }
 
-void std_lmVec4Negative(lmVec4& a_rkArgOut,const lmVec4& ac_rkArgL)
+void std_lmVec4Negative(LmVec4& a_rkArgOut,const LmVec4& ac_rkArgL)
 {
 	a_rkArgOut.x = -ac_rkArgL.x;
 	a_rkArgOut.y = -ac_rkArgL.y;
@@ -53,7 +49,7 @@ void std_lmVec4Negative(lmVec4& a_rkArgOut,const lmVec4& ac_rkArgL)
 	a_rkArgOut.w = -ac_rkArgL.w;
 }
 
-bool std_lmVec4Equals(const lmVec4& ac_rkArgL,const lmVec4& ac_rkArgR)
+bool std_lmVec4Equals(const LmVec4& ac_rkArgL,const LmVec4& ac_rkArgR)
 {
 	return ac_rkArgL.x == ac_rkArgR.x &&
 		ac_rkArgL.y == ac_rkArgR.y &&
@@ -61,7 +57,7 @@ bool std_lmVec4Equals(const lmVec4& ac_rkArgL,const lmVec4& ac_rkArgR)
 		ac_rkArgL.w == ac_rkArgR.w;
 }
 
-bool std_lmVec4NotEquals(const lmVec4& ac_rkArgL,const lmVec4& ac_rkArgR)
+bool std_lmVec4NotEquals(const LmVec4& ac_rkArgL,const LmVec4& ac_rkArgR)
 {
 	return ac_rkArgL.x != ac_rkArgR.x &&
 		ac_rkArgL.y != ac_rkArgR.y &&
@@ -69,36 +65,36 @@ bool std_lmVec4NotEquals(const lmVec4& ac_rkArgL,const lmVec4& ac_rkArgR)
 		ac_rkArgL.w != ac_rkArgR.w;
 }
 
-float std_lmVec4DotProduct(const lmVec4& ac_rkArgL,const lmVec4& ac_rkArgR)
+float std_lmVec4DotProduct(const LmVec4& ac_rkArgL,const LmVec4& ac_rkArgR)
 {
 	return ac_rkArgL.x * ac_rkArgR.x +
 		ac_rkArgL.y * ac_rkArgR.y +
 		ac_rkArgL.z * ac_rkArgR.z;
 }
 
-float std_lmVec4Length(const lmVec4& ac_rkArgL)
+float std_lmVec4Length(const LmVec4& ac_rkArgL)
 {
-	return sqrtf(ac_rkArgL.x * ac_rkArgL.x + 
+	return lmSqrt(ac_rkArgL.x * ac_rkArgL.x + 
 		ac_rkArgL.y * ac_rkArgL.y + 
-		ac_rkArgL.z * ac_rkArgL.z + 
-		ac_rkArgL.w * ac_rkArgL.w);
+		ac_rkArgL.z * ac_rkArgL.z);
 }
 
-float std_lmVec4LengthSqr(const lmVec4& ac_rkArgL)
+float std_lmVec4LengthSqr(const LmVec4& ac_rkArgL)
 {
 	return ac_rkArgL.x * ac_rkArgL.x + 
 		ac_rkArgL.y * ac_rkArgL.y + 
-		ac_rkArgL.z * ac_rkArgL.z + 
-		ac_rkArgL.w * ac_rkArgL.w;
+		ac_rkArgL.z * ac_rkArgL.z;
 }
 
-void std_lmVec4Normalise(lmVec4& a_rkArgOut,const lmVec4& ac_rkArgL)
+void std_lmVec4Normalise(LmVec4& a_rkArgOut,const LmVec4& ac_rkArgL)
 {
 	float fLength = ac_rkArgL.Length();
-	a_rkArgOut = ac_rkArgL / fLength;
+	a_rkArgOut.x = ac_rkArgL.x / fLength;
+	a_rkArgOut.y = ac_rkArgL.y / fLength;
+	a_rkArgOut.z = ac_rkArgL.z / fLength;
 }
 
-void std_lmVec4Maximise(lmVec4& a_rkArgOut,const lmVec4& ac_rkArgL)
+void std_lmVec4Maximise(LmVec4& a_rkArgOut,const LmVec4& ac_rkArgL)
 {
 	float fHighest = ac_rkArgL.x;
 	for(unsigned int i = 1;i < 4;i++)
@@ -109,7 +105,7 @@ void std_lmVec4Maximise(lmVec4& a_rkArgOut,const lmVec4& ac_rkArgL)
 	a_rkArgOut.Set(fHighest,fHighest,fHighest,fHighest);
 }
 
-void std_lmVec4Minimise(lmVec4& a_rkArgOut,const lmVec4& ac_rkArgL)
+void std_lmVec4Minimise(LmVec4& a_rkArgOut,const LmVec4& ac_rkArgL)
 {
 	float fLowest = ac_rkArgL.x;
 	for(unsigned int i = 1;i < 4;i++)
@@ -120,49 +116,60 @@ void std_lmVec4Minimise(lmVec4& a_rkArgOut,const lmVec4& ac_rkArgL)
 	a_rkArgOut.Set(fLowest,fLowest,fLowest,fLowest);
 }
 
-//bool(const lmVec4&, const lmVec4&)
-lmVec4_Bool_CVec4_CVec4 Labyrinth::lmVec4Equals = nullptr;
-lmVec4_Bool_CVec4_CVec4 Labyrinth::lmVec4NotEquals = nullptr;
-
-//void (lmVec4&, const lmVec4&)
-lmVec4_Void_Vec4_CVec4 Labyrinth::lmVec4Normalise = nullptr;
-lmVec4_Void_Vec4_CVec4 Labyrinth::lmVec4Maximise = nullptr;
-lmVec4_Void_Vec4_CVec4 Labyrinth::lmVec4Minimise = nullptr;
-lmVec4_Void_Vec4_CVec4 Labyrinth::lmVec4Negative = nullptr;
-
-//void (lmVec4&, const lmVec4&, float)
-lmVec4_Void_Vec4_CVec4_Float Labyrinth::lmVec4Mul = nullptr;
-lmVec4_Void_Vec4_CVec4_Float Labyrinth::lmVec4Div = nullptr;
-
-//void (lmVec4&, const lmVec4&, const lmVec4&)
-lmVec4_Void_Vec4_CVec4_CVec4 Labyrinth::lmVec4Add = nullptr;
-lmVec4_Void_Vec4_CVec4_CVec4 Labyrinth::lmVec4Sub = nullptr;
-
-//float (const lmVec4&)
-lmVec4_Float_CVec4 Labyrinth::lmVec4Length = nullptr;
-lmVec4_Float_CVec4 Labyrinth::lmVec4LengthSqr = nullptr;
-
-//float (cosnt lmVec4&, const lmVec4&)
-lmVec4_Float_CVec4_CVec4 Labyrinth::lmVec4DotProduct = nullptr;
-
-void lmVec4::Construct()
+void std_lmVec4CrossProduct(LmVec4& a_rkArgOut,const LmVec4& ac_rkArgL,const LmVec4& ac_rkArgR)
 {
-	lmVec4Equals = &std_lmVec4Equals;
-	lmVec4NotEquals = &std_lmVec4NotEquals;
+	a_rkArgOut.Set((ac_rkArgL.y * ac_rkArgR.z) - (ac_rkArgL.z * ac_rkArgR.y),
+		(ac_rkArgL.z * ac_rkArgR.x) - (ac_rkArgL.x* ac_rkArgR.z),
+		(ac_rkArgL.x * ac_rkArgR.y) - (ac_rkArgL.y * ac_rkArgR.x));
+}
 
-	lmVec4Normalise = &std_lmVec4Normalise;
-	lmVec4Maximise = &std_lmVec4Maximise;
-	lmVec4Minimise = &std_lmVec4Minimise;
-	lmVec4Negative = &std_lmVec4Negative;
+extern void ispc_lmVec4Add(LmVec4&,const LmVec4&,const LmVec4&);
 
-	lmVec4Mul = &std_lmVec4Mul;
-	lmVec4Div = &std_lmVec4Div;
+//bool(const LmVec4&, const LmVec4&)
+lmVec4_Bool_CVec4_CVec4 LmVec4Equals = nullptr;
+lmVec4_Bool_CVec4_CVec4 LmVec4NotEquals = nullptr;
 
-	lmVec4Add = &std_lmVec4Add;
-	lmVec4Sub = &std_lmVec4Sub;
+//void (LmVec4&, const LmVec4&)
+lmVec4_Void_Vec4_CVec4 LmVec4Normalise = nullptr;
+lmVec4_Void_Vec4_CVec4 LmVec4Maximise = nullptr;
+lmVec4_Void_Vec4_CVec4 LmVec4Minimise = nullptr;
+lmVec4_Void_Vec4_CVec4 LmVec4Negative = nullptr;
+
+//void (LmVec4&, const LmVec4&, float)
+lmVec4_Void_Vec4_CVec4_Float LmVec4Mul = nullptr;
+lmVec4_Void_Vec4_CVec4_Float LmVec4Div = nullptr;
+
+//void (LmVec4&, const LmVec4&, const LmVec4&)
+lmVec4_Void_Vec4_CVec4_CVec4 LmVec4Add = nullptr;
+lmVec4_Void_Vec4_CVec4_CVec4 LmVec4Sub = nullptr;
+lmVec4_Void_Vec4_CVec4_CVec4 LmVec4CrossProduct = nullptr;
+
+//float (const LmVec4&)
+lmVec4_Float_CVec4 LmVec4Length = nullptr;
+lmVec4_Float_CVec4 LmVec4LengthSqr = nullptr;
+
+//float (cosnt LmVec4&, const LmVec4&)
+lmVec4_Float_CVec4_CVec4 LmVec4DotProduct = nullptr;
+
+void LmVec4::Construct()
+{
+	LmVec4Equals = &std_lmVec4Equals;
+	LmVec4NotEquals = &std_lmVec4NotEquals;
+
+	LmVec4Normalise = &std_lmVec4Normalise;
+	LmVec4Maximise = &std_lmVec4Maximise;
+	LmVec4Minimise = &std_lmVec4Minimise;
+	LmVec4Negative = &std_lmVec4Negative;
+
+	LmVec4Mul = &std_lmVec4Mul;
+	LmVec4Div = &std_lmVec4Div;
+
+	LmVec4Add = &std_lmVec4Add;
+	LmVec4Sub = &std_lmVec4Sub;
 	
-	lmVec4Length = &std_lmVec4Length;
-	lmVec4LengthSqr = &std_lmVec4LengthSqr;
+	LmVec4Length = &std_lmVec4Length;
+	LmVec4LengthSqr = &std_lmVec4LengthSqr;
 
-	lmVec4DotProduct = &std_lmVec4DotProduct;
+	LmVec4DotProduct = &std_lmVec4DotProduct;
+	LmVec4CrossProduct = &std_lmVec4CrossProduct;
 }
