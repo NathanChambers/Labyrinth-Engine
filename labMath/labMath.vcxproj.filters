@@ -10,6 +10,9 @@
     <Filter Include="lmVectors">
       <UniqueIdentifier>{20be7937-09bd-4c62-b5ab-118027ef1155}</UniqueIdentifier>
     </Filter>
+    <Filter Include="lmIspc">
+      <UniqueIdentifier>{ed4d0dcc-4125-4bff-a127-f74947b8ec8e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lmCore\lmCore.h">
@@ -20,9 +23,6 @@
     </ClInclude>
     <ClInclude Include="lmCore\lmBoot.h">
       <Filter>lmCore</Filter>
-    </ClInclude>
-    <ClInclude Include="lmMatrices\lmMatrix3.h">
-      <Filter>lmMatrices</Filter>
     </ClInclude>
     <ClInclude Include="lmVectors\lmVec3.h">
       <Filter>lmVectors</Filter>
@@ -48,9 +48,6 @@
     <ClCompile Include="lmVectors\lmVec3.cpp">
       <Filter>lmVectors</Filter>
     </ClCompile>
-    <ClCompile Include="lmMatrices\lmMatrix3.cpp">
-      <Filter>lmMatrices</Filter>
-    </ClCompile>
     <ClCompile Include="lmVectors\lmVec2.cpp">
       <Filter>lmVectors</Filter>
     </ClCompile>
@@ -65,14 +62,31 @@
     <None Include="lmVectors\lmVec3.inl">
       <Filter>lmVectors</Filter>
     </None>
-    <None Include="lmMatrices\lmMatrix3.inl">
-      <Filter>lmMatrices</Filter>
-    </None>
     <None Include="lmVectors\lmVec2.inl">
       <Filter>lmVectors</Filter>
     </None>
     <None Include="lmMatrices\lmMatrix4.inl">
       <Filter>lmMatrices</Filter>
     </None>
+    <None Include="lmIspc\ispcVec4.ispc">
+      <Filter>lmIspc</Filter>
+    </None>
+    <None Include="lmIspc\ispcVec3.ispc">
+      <Filter>lmIspc</Filter>
+    </None>
+    <None Include="lmIspc\ispcVec2.ispc">
+      <Filter>lmIspc</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="lmVectors\lmVec4.obj">
+      <Filter>lmVectors</Filter>
+    </Object>
+    <Object Include="lmVectors\lmVec3.obj">
+      <Filter>lmVectors</Filter>
+    </Object>
+    <Object Include="lmVectors\lmVec2.obj">
+      <Filter>lmVectors</Filter>
+    </Object>
   </ItemGroup>
 </Project>

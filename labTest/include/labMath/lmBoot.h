@@ -5,9 +5,10 @@ class LmBoot
 {
 public:
 	LmBoot();
+
 private:
 	void Construct();
-	static bool bBooted;
+	static bool m_bBooted;
 };
 
 #endif//__LAB_BOOT_H_

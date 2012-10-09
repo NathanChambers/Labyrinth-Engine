@@ -24,7 +24,7 @@ Application::~Application()
 
 bool Application::OnCreate(const char* a_sCmdLine)
 {
-	Utilities::ConsoleShow(false);
+	Utilities::ConsoleShow(true);
 
 	//System,
 	m_pWindow = Window::Create("Labyrinth Test App",1080,720);
@@ -45,43 +45,9 @@ bool Application::OnCreate(const char* a_sCmdLine)
 	m_pCamera->SetTranslate(0,0,-10);
 	m_pCamera->Update();
 
-	ShaderProperty* pkShaderProp = ShaderProperty::Create("./Data/Shaders/base.hlsl");
+	m_pScene = new lcNode();
 
-	m_pScene = new lcNode("Scene Root");
-
-	kBox = dynamic_cast<lcMesh*>(CreateCube());
-	kBox->AttachProperty(pkShaderProp);
-
-	m_pScene->AttachChild(kBox);
-
-	//lmMatrix3 kMat;
-	//kMat.Set(,0,0,0,5,0,0,0,5);
-
-	D3DXMATRIX kConvMatrix;
-	//kConvMatrix = kMat.m_v;
-
-	D3DXMatrixRotationX(&kConvMatrix,LM_PI_HALF / 2.0f);
-
-	kBox->SetRotate(kConvMatrix);
-
-	LmVec4 kVec0(1,2,3,4);
-	LmVec4 kVec1(1,2,3,4);
-	float fLength = kVec0.LenghtSqr();
-	float fRet = kVec0.DotProduct(kVec1);
-
-	LmVec2 kVec2(1,2);
-	kVec2.Normalise();
-	float fRet2 = kVec2.DotProduct(kVec2);
-
-	lmMatrix4 kMat0;
-	lmMatrix4MakeXRot(kMat0,LM_PI);
-	lmMatrix4Mul(kMat0,kMat0,kMat0);
-
-	D3DXMATRIX kMat1;
-	D3DXMatrixRotationX(&kMat1,LM_PI);
-	D3DXMatrixMultiply(&kMat1,&kMat1,&kMat1);
-
-	
+	ShaderProperty* pkShaderProp = ShaderProperty::Create("./data/shaders/base.hlsl");
 
 	return true;
 }

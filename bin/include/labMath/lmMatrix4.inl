@@ -8,7 +8,8 @@ lmMatrix4::lmMatrix4()
 
 inline
 lmMatrix4::lmMatrix4(const lmMatrix4& a_rkCopy)
-	:m_kRowX(a_rkCopy.m_kRowX),m_kRowY(a_rkCopy.m_kRowY),m_kRowZ(a_rkCopy.m_kRowZ),m_kRowW(a_rkCopy.m_kRowW)
+	: m_f00(a_rkCopy.m_f00),m_f01(a_rkCopy.m_f01),m_f02(a_rkCopy.m_f02),m_f03(a_rkCopy.m_f03),m_f10(a_rkCopy.m_f10),m_f11(a_rkCopy.m_f11),m_f12(a_rkCopy.m_f12),m_f13(a_rkCopy.m_f13),
+	m_f20(a_rkCopy.m_f20),m_f21(a_rkCopy.m_f21),m_f22(a_rkCopy.m_f22),m_f23(a_rkCopy.m_f23),m_f30(a_rkCopy.m_f30),m_f31(a_rkCopy.m_f31),m_f32(a_rkCopy.m_f32),m_f33(a_rkCopy.m_f33)
 {
 
 }
@@ -31,10 +32,13 @@ lmMatrix4::~lmMatrix4()
 inline
 void lmMatrix4::operator = (const lmMatrix4& a_rkCopy)
 {
-	m_kRowX = a_rkCopy.m_kRowX;
-	m_kRowY = a_rkCopy.m_kRowY;
-	m_kRowZ = a_rkCopy.m_kRowZ;
-	m_kRowW = a_rkCopy.m_kRowW;
+	for(int r = 0;r < 4;++r)
+	{
+		for(int c = 0;c < 4;++c)
+		{
+			m_m[r][c] = a_rkCopy.m_m[r][c];
+		}
+	}
 }
 
 inline
@@ -85,4 +89,30 @@ inline
 void lmMatrix4::MakeZRotate(float a_fTheta)
 {
 	lmMatrix4MakeZRot((*this),a_fTheta);
+}
+
+inline
+lmVec4 lmMatrix4::GetRow(int a_iRowIndex)
+{
+	lmVec4 kRetVec(m_m[a_iRowIndex][0],m_m[a_iRowIndex][1],m_m[a_iRowIndex][2],m_m[a_iRowIndex][3]);
+	return kRetVec;
+}
+
+inline
+lmVec4 lmMatrix4::GetCol(int a_iColIndex)
+{
+	lmVec4 kRetVec(m_m[0][a_iColIndex],m_m[1][a_iColIndex],m_m[2][a_iColIndex],m_m[3][a_iColIndex]);
+	return kRetVec;
+}
+
+inline
+void lmMatrix4::SetRow(const lmVec4& a_rkRow,int a_iRowIndex)
+{
+
+}
+
+inline
+void lmMatrix4::SetCol(const lmVec4& a_rkCol,int a_iColIndex)
+{
+
 }

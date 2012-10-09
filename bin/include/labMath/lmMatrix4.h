@@ -48,18 +48,16 @@ public:
 			float m_f33;
 		};
 
-		struct
-		{
-			LmVec4 m_kRowX;
-			LmVec4 m_kRowY;
-			LmVec4 m_kRowZ;
-			LmVec4 m_kRowW;
-		};
-
 		float m_m[4][4];
 		float m_v[16];
 		
 	};
+
+	lmVec4 GetRow(int a_iRowIndex);
+	lmVec4 GetCol(int a_iColIndex);
+
+	void SetRow(const lmVec4& a_rkRow,int a_iRowIndex);
+	void SetCol(const lmVec4& a_rkCol,int a_iColIndex);
 
 	void MakeXRotate(float a_fTheta);
 	void MakeYRotate(float a_fTheta);

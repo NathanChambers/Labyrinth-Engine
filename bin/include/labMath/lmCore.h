@@ -5,18 +5,30 @@
 
 #include "lmBoot.h"
 
+//Vectors
 #include "lmVec2.h"
 #include "lmVec3.h"
 #include "lmVec4.h"
 
-#include "lmMatrix3.h"
+//Matrices
 #include "lmMatrix4.h"
 
-static const LmBoot g_kBoot;
+//Math Intrinsics
+enum LM_INTRIN_SET
+{
+	LM_INTRIN_STD,
+	LM_INTRIN_ISPC,
+	LM_INTRIN_NONE,
+	LM_INTRIN_ERROR,
+	LM_INTRIN_COUNT
+};
 
 static const float LM_PI		= 3.14159265f;
 static const float LM_PI_HALF	= 1.57079632f;
 static const float LM_PI_TWO	= 6.28318530f;
+
+LM_INTRIN_SET lmGetIntrinsic();
+void lmSetIntrinsic(LM_INTRIN_SET a_kIntrinsic);
 
 float __fastcall lmSqrt(float a_dArgIn);
 

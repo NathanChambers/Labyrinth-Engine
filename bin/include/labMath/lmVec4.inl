@@ -1,40 +1,40 @@
 #include "lmVec4.h"
 
 inline
-LmVec4::LmVec4()
+lmVec4::lmVec4()
 {
 
 }
 
 inline
-LmVec4::LmVec4(float a_fX ,float a_fY ,float a_fZ ,float a_fW)
+lmVec4::lmVec4(float a_fX ,float a_fY ,float a_fZ ,float a_fW)
 	: x(a_fX),y(a_fY),z(a_fZ),w(a_fW)
 {
 
 }
 
 inline
-LmVec4::LmVec4(const LmVec4& ac_rkArgIn)
+lmVec4::lmVec4(const lmVec4& ac_rkArgIn)
 	:x(ac_rkArgIn.x),y(ac_rkArgIn.y),z(ac_rkArgIn.z),w(ac_rkArgIn.w)
 {
 
 }
 
 inline
-LmVec4::LmVec4(float* a_pfArgL)
+lmVec4::lmVec4(float* a_pfArgL)
 	:x(a_pfArgL[0]),y(a_pfArgL[1]),z(a_pfArgL[2]),w(a_pfArgL[3])
 {
 
 }
 
 inline
-LmVec4::~LmVec4()
+lmVec4::~lmVec4()
 {
 
 }
 
 inline
-void LmVec4::Set(float a_fX,float a_fY,float a_fZ,float a_fW)
+void lmVec4::Set(float a_fX,float a_fY,float a_fZ,float a_fW)
 {
 	x = a_fX;
 	y = a_fY;
@@ -43,7 +43,7 @@ void LmVec4::Set(float a_fX,float a_fY,float a_fZ,float a_fW)
 }
 
 inline
-LmVec4& LmVec4::operator = (const LmVec4& ac_pkArgL)
+lmVec4& lmVec4::operator = (const lmVec4& ac_pkArgL)
 {
 	x = ac_pkArgL.x;
 	y = ac_pkArgL.y;
@@ -53,7 +53,7 @@ LmVec4& LmVec4::operator = (const LmVec4& ac_pkArgL)
 }
 
 inline
-LmVec4& LmVec4::operator = (float* a_pfArgL)
+lmVec4& lmVec4::operator = (float* a_pfArgL)
 {
 	x = a_pfArgL[0];
 	y = a_pfArgL[1];
@@ -63,137 +63,149 @@ LmVec4& LmVec4::operator = (float* a_pfArgL)
 }
 
 inline
-LmVec4 LmVec4::operator + (const LmVec4& ac_rkArgL) const
+lmVec4 lmVec4::operator + (const lmVec4& ac_rkArgL) const
 {
-	LmVec4 rkRetVec4;
-	LmVec4Add(rkRetVec4,(*this),ac_rkArgL);
+	lmVec4 rkRetVec4;
+	lmVec4Add(rkRetVec4,(*this),ac_rkArgL);
 	return rkRetVec4;
 }
 
 inline
-LmVec4 LmVec4::operator - (const LmVec4& ac_rkArgL) const
+lmVec4 lmVec4::operator - (const lmVec4& ac_rkArgL) const
 {
-	LmVec4 rkRetVec4;
-	LmVec4Sub(rkRetVec4,(*this),ac_rkArgL);
+	lmVec4 rkRetVec4;
+	lmVec4Sub(rkRetVec4,(*this),ac_rkArgL);
 	return rkRetVec4;
 }
 
 inline
-LmVec4& LmVec4::operator += (const LmVec4& ac_rkArgL)
+lmVec4& lmVec4::operator += (const lmVec4& ac_rkArgL)
 {
-	LmVec4Add((*this),(*this),ac_rkArgL);
+	lmVec4Add((*this),(*this),ac_rkArgL);
 	return (*this);
 }
 
 inline
-LmVec4& LmVec4::operator -= (const LmVec4& ac_rkArgL)
+lmVec4& lmVec4::operator -= (const lmVec4& ac_rkArgL)
 {
-	LmVec4Sub((*this),(*this),ac_rkArgL);
+	lmVec4Sub((*this),(*this),ac_rkArgL);
 	return (*this);
 }
 
 inline
-LmVec4 LmVec4::operator * (const float ac_fArg0) const
+lmVec4 lmVec4::operator * (const float ac_fArg0) const
 {
-	LmVec4 rkRetVec4;
-	LmVec4Mul(rkRetVec4,(*this),ac_fArg0);
+	lmVec4 rkRetVec4;
+	lmVec4Mul(rkRetVec4,(*this),ac_fArg0);
 	return rkRetVec4;
 }
 
 inline
-LmVec4 LmVec4::operator / (const float ac_fArg0) const
+lmVec4 lmVec4::operator / (const float ac_fArg0) const
 {
-	LmVec4 rkRetVec4;
-	LmVec4Div(rkRetVec4,(*this),ac_fArg0);
+	lmVec4 rkRetVec4;
+	lmVec4Div(rkRetVec4,(*this),ac_fArg0);
 	return rkRetVec4;
 }
 
 inline
-LmVec4& LmVec4::operator *= (const float ac_fArg0)
+lmVec4& lmVec4::operator *= (const float ac_fArg0)
 {
-	LmVec4Mul((*this),(*this),ac_fArg0);
+	lmVec4Mul((*this),(*this),ac_fArg0);
 	return (*this);
 }
 
 inline
-LmVec4& LmVec4::operator /= (const float ac_fArg0)
+lmVec4& lmVec4::operator /= (const float ac_fArg0)
 {
-	LmVec4Div((*this),(*this),ac_fArg0);
+	lmVec4Div((*this),(*this),ac_fArg0);
 	return (*this);
 }
 
 inline
-LmVec4 LmVec4::operator - ()
+lmVec4 lmVec4::operator - ()
 {
-	LmVec4 rkRetVec4;
-	LmVec4Negative(rkRetVec4,(*this));
+	lmVec4 rkRetVec4;
+	lmVec4Negative(rkRetVec4,(*this));
 	return rkRetVec4;
 }
 
 inline
-float& LmVec4::operator [] (unsigned int a_uiIndex)
+float& lmVec4::operator [] (unsigned int a_uiIndex)
 {
 	return v[a_uiIndex];
 }
 
 inline
-const float& LmVec4::operator [] (unsigned int a_uiIndex) const
+const float& lmVec4::operator [] (unsigned int a_uiIndex) const
 {
 	return v[a_uiIndex];
 }
 
 inline
-bool LmVec4::operator == (const LmVec4& ac_rkArgL) const
+bool lmVec4::operator == (const lmVec4& ac_rkArgL) const
 {
-	return LmVec4Equals((*this),ac_rkArgL);
+	return lmVec4Equals((*this),ac_rkArgL);
 }
 
 inline
-bool LmVec4::operator != (const LmVec4& ac_rkArgL) const
+bool lmVec4::operator != (const lmVec4& ac_rkArgL) const
 {
-	return LmVec4NotEquals((*this),ac_rkArgL);
+	return lmVec4NotEquals((*this),ac_rkArgL);
 }
 
 inline
-float LmVec4::Length() const
+lmVec4::operator const float *() const
 {
-	return LmVec4Length((*this));
+	return (const float*)v;
+}
+
+inline 
+lmVec4::operator float *()
+{
+	return v;
 }
 
 inline
-float LmVec4::LenghtSqr() const
+float lmVec4::Length() const
 {
-	return LmVec4LengthSqr((*this));
+	return lmVec4Length((*this));
 }
 
 inline
-void LmVec4::Normalise()
+float lmVec4::LenghtSqr() const
 {
-	LmVec4Normalise((*this),(*this));
+	return lmVec4LengthSqr((*this));
 }
 
 inline
-void LmVec4::Maximize()
+void lmVec4::Normalise()
 {
-	LmVec4Maximise((*this),(*this));
+	lmVec4Normalise((*this),(*this));
 }
 
 inline
-void LmVec4::Minimize()
+void lmVec4::Maximize()
 {
-	LmVec4Minimise((*this),(*this));
+	lmVec4Maximise((*this),(*this));
 }
 
 inline
-float LmVec4::DotProduct(const LmVec4& ac_rkArgL) const
+void lmVec4::Minimize()
 {
-	return LmVec4DotProduct((*this),ac_rkArgL);
+	lmVec4Minimise((*this),(*this));
 }
 
 inline
-LmVec4 LmVec4::CrossProduct(const LmVec4& ac_rkArgL) const
+float lmVec4::DotProduct(const lmVec4& ac_rkArgL) const
 {
-	LmVec4 kRetVec;
-	LmVec4CrossProduct(kRetVec,(*this),ac_rkArgL);
-	return kRetVec;
+	return lmVec4DotProduct((*this),ac_rkArgL);
+}
+
+inline
+lmVec4 lmVec4::CrossProduct(const lmVec4& ac_rkArgL,const lmVec4& ac_rkArgR) const
+{
+	lmVec4 rkRetVec4;
+	lmVec4CrossProduct(rkRetVec4,ac_rkArgL,ac_rkArgR);
+	return rkRetVec4;
 }

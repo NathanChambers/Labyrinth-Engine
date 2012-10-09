@@ -1,23 +1,23 @@
-#ifndef __LAB_VEC4_H_
-#define __LAB_VEC4_H_
+#ifndef __LMVEC4_H_
+#define __LMVEC4_H_
 
 ////////////////////////////////////////////////////////////////////////////////
 
 
 ////////////////////////////////////////////////////////////////////////////////
-//LmVec4 Dec
-class LmVec4
+//lmVec4 Dec
+class lmVec4
 {
 	friend class LmBoot;
 public:
 	//Constructors
-	LmVec4();
-	LmVec4(float a_fX, float a_fY, float a_fZ, float a_fW = 1.0f);
-	LmVec4(const LmVec4& ac_rkCopy);
-	LmVec4(float* a_afVector);
-	LmVec4& operator = (const LmVec4& ac_rkCopy);
-	LmVec4& operator = (float* a_afVector);
-	~LmVec4();
+	lmVec4();
+	lmVec4(float a_fX, float a_fY, float a_fZ, float a_fW = 1.0f);
+	lmVec4(const lmVec4& ac_rkCopy);
+	lmVec4(float* a_afVector);
+	lmVec4& operator = (const lmVec4& ac_rkCopy);
+	lmVec4& operator = (float* a_afVector);
+	~lmVec4();
 
 	//Class Data
 	union
@@ -33,13 +33,13 @@ public:
 	};
 
 	//Static Variables
-	static const LmVec4 ZERO;
-	static const LmVec4 POSX;
-	static const LmVec4 POSY;
-	static const LmVec4 POSZ;
-	static const LmVec4 NEGX;
-	static const LmVec4 NEGY;
-	static const LmVec4 NEGZ;
+	static const lmVec4 ZERO;
+	static const lmVec4 POSX;
+	static const lmVec4 POSY;
+	static const lmVec4 POSZ;
+	static const lmVec4 NEGX;
+	static const lmVec4 NEGY;
+	static const lmVec4 NEGZ;
 
 	//Regular Functions
 	void Set(float a_fX, float a_fY, float a_fZ, float a_fW = 1.0f);
@@ -48,30 +48,33 @@ public:
 	void Maximize();
 	void Minimize();
 
-	float DotProduct(const LmVec4&) const;
-	LmVec4 CrossProduct(const LmVec4&) const;
+	float DotProduct(const lmVec4&) const;
+	lmVec4 CrossProduct(const lmVec4&) const;
 
 	float Length() const;
 	float LenghtSqr() const;
 
 	//Operators
-	LmVec4 operator + (const LmVec4&) const;
-	LmVec4 operator - (const LmVec4&) const;
-	LmVec4& operator += (const LmVec4&);
-	LmVec4& operator -= (const LmVec4&);
+	lmVec4 operator + (const lmVec4&) const;
+	lmVec4 operator - (const lmVec4&) const;
+	lmVec4& operator += (const lmVec4&);
+	lmVec4& operator -= (const lmVec4&);
 
-	LmVec4 operator * (float) const;
-	LmVec4 operator / (float) const;
-	LmVec4& operator *= (float);
-	LmVec4& operator /= (float);
+	lmVec4 operator * (float) const;
+	lmVec4 operator / (float) const;
+	lmVec4& operator *= (float);
+	lmVec4& operator /= (float);
 
-	LmVec4 operator - ();
+	lmVec4 operator - ();
 
 	float& operator [] (unsigned int);
 	const float& operator [] (unsigned int) const;
 
-	bool operator == (const LmVec4&) const;
-	bool operator != (const LmVec4&) const;
+	operator float* ();
+	operator const float*() const;
+
+	bool operator == (const lmVec4&) const;
+	bool operator != (const lmVec4&) const;
 
 private:
 	static void Construct();
@@ -79,49 +82,49 @@ private:
 
 ////////////////////////////////////////////////////////////////////////////////
 //Function Pointer Dec
-typedef bool (*lmVec4_Bool_CVec4_CVec4)(const LmVec4&,const LmVec4&);
+typedef bool (*lmVec4_Bool_CVec4_CVec4)(const lmVec4&,const lmVec4&);
 
-typedef void (*lmVec4_Void_Vec4_CVec4)(LmVec4&,const LmVec4&);
-typedef void (*lmVec4_Void_Vec4_CVec4_Float)(LmVec4&,const LmVec4&,float);
-typedef void (*lmVec4_Void_Vec4_CVec4_CVec4)(LmVec4&,const LmVec4&,const LmVec4&);		
+typedef void (*lmVec4_Void_Vec4_CVec4)(lmVec4&,const lmVec4&);
+typedef void (*lmVec4_Void_Vec4_CVec4_Float)(lmVec4&,const lmVec4&,float);
+typedef void (*lmVec4_Void_Vec4_CVec4_CVec4)(lmVec4&,const lmVec4&,const lmVec4&);		
 
-typedef float (*lmVec4_Float_CVec4)(const LmVec4&);
-typedef float (*lmVec4_Float_CVec4_CVec4)(const LmVec4&,const LmVec4&);
-
-////////////////////////////////////////////////////////////////////////////////
-//bool(const LmVec4&, const LmVec4&)
-extern lmVec4_Bool_CVec4_CVec4 LmVec4Equals;
-extern lmVec4_Bool_CVec4_CVec4 LmVec4NotEquals;
+typedef float (*lmVec4_Float_CVec4)(const lmVec4&);
+typedef float (*lmVec4_Float_CVec4_CVec4)(const lmVec4&,const lmVec4&);
 
 ////////////////////////////////////////////////////////////////////////////////
-//void (LmVec4&, const LmVec4&)
-extern lmVec4_Void_Vec4_CVec4 LmVec4Normalise;
-extern lmVec4_Void_Vec4_CVec4 LmVec4Maximise;
-extern lmVec4_Void_Vec4_CVec4 LmVec4Minimise;
-extern lmVec4_Void_Vec4_CVec4 LmVec4Negative;
+//bool(const lmVec4&, const lmVec4&)
+extern lmVec4_Bool_CVec4_CVec4 lmVec4Equals;
+extern lmVec4_Bool_CVec4_CVec4 lmVec4NotEquals;
 
 ////////////////////////////////////////////////////////////////////////////////
-//void (LmVec4&, const LmVec4&, float)
-extern lmVec4_Void_Vec4_CVec4_Float LmVec4Mul;
-extern lmVec4_Void_Vec4_CVec4_Float LmVec4Div;
+//void (lmVec4&, const lmVec4&)
+extern lmVec4_Void_Vec4_CVec4 lmVec4Normalise;
+extern lmVec4_Void_Vec4_CVec4 lmVec4Maximise;
+extern lmVec4_Void_Vec4_CVec4 lmVec4Minimise;
+extern lmVec4_Void_Vec4_CVec4 lmVec4Negative;
 
 ////////////////////////////////////////////////////////////////////////////////
-//void (LmVec4&, const LmVec4&, const LmVec4&)
-extern lmVec4_Void_Vec4_CVec4_CVec4 LmVec4Add;
-extern lmVec4_Void_Vec4_CVec4_CVec4 LmVec4Sub;
-extern lmVec4_Void_Vec4_CVec4_CVec4 LmVec4CrossProduct;
+//void (lmVec4&, const lmVec4&, float)
+extern lmVec4_Void_Vec4_CVec4_Float lmVec4Mul;
+extern lmVec4_Void_Vec4_CVec4_Float lmVec4Div;
 
 ////////////////////////////////////////////////////////////////////////////////
-//float (const LmVec4&)
-extern lmVec4_Float_CVec4 LmVec4Length;
-extern lmVec4_Float_CVec4 LmVec4LengthSqr;
+//void (lmVec4&, const lmVec4&, const lmVec4&)
+extern lmVec4_Void_Vec4_CVec4_CVec4 lmVec4Add;
+extern lmVec4_Void_Vec4_CVec4_CVec4 lmVec4Sub;
+extern lmVec4_Void_Vec4_CVec4_CVec4 lmVec4CrossProduct;
 
 ////////////////////////////////////////////////////////////////////////////////
-//float (cosnt LmVec4&, const LmVec4&)
-extern lmVec4_Float_CVec4_CVec4 LmVec4DotProduct;
+//float (const lmVec4&)
+extern lmVec4_Float_CVec4 lmVec4Length;
+extern lmVec4_Float_CVec4 lmVec4LengthSqr;
+
+////////////////////////////////////////////////////////////////////////////////
+//float (cosnt lmVec4&, const lmVec4&)
+extern lmVec4_Float_CVec4_CVec4 lmVec4DotProduct;
 
 #include "lmVec4.inl"
 
 ////////////////////////////////////////////////////////////////////////////////
 
-#endif//__LAB_VEC4_H_
+#endif//__LMVEC4_H_

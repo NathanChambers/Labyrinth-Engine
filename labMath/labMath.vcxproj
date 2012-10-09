@@ -16,12 +16,12 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
@@ -51,6 +51,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "lmCore\*.h" "..\bin\include\labMath\" /R /Y /Q
@@ -60,6 +61,12 @@ xcopy "lmVectors\*.inl" "..\bin\include\labMath\" /R /Y /Q
 xcopy "lmMatrices\*.h" "..\bin\include\labMath\" /R /Y /Q
 xcopy "lmMatrices\*.inl" "..\bin\include\labMath\" /R /Y /Q</Command>
     </PostBuildEvent>
+    <Lib>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -67,6 +74,7 @@ xcopy "lmMatrices\*.inl" "..\bin\include\labMath\" /R /Y /Q</Command>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>.\lmCore\;.\lmTransform\;.\lmMatrices\;.\lmVectors\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -81,7 +89,6 @@ xcopy "lmMatrices\*.inl" "..\bin\include\labMath\" /R /Y /Q</Command>
   <ItemGroup>
     <ClInclude Include="lmCore\lmBoot.h" />
     <ClInclude Include="lmCore\lmCore.h" />
-    <ClInclude Include="lmMatrices\lmMatrix3.h" />
     <ClInclude Include="lmMatrices\lmMatrix4.h" />
     <ClInclude Include="lmVectors\lmVec2.h" />
     <ClInclude Include="lmVectors\lmVec3.h" />
@@ -90,7 +97,6 @@ xcopy "lmMatrices\*.inl" "..\bin\include\labMath\" /R /Y /Q</Command>
   <ItemGroup>
     <ClCompile Include="lmCore\lmBoot.cpp" />
     <ClCompile Include="lmCore\lmCore.cpp" />
-    <ClCompile Include="lmMatrices\lmMatrix3.cpp" />
     <ClCompile Include="lmMatrices\lmMatrix4.cpp" />
     <ClCompile Include="lmVectors\lmVec2.cpp" />
     <ClCompile Include="lmVectors\lmVec3.cpp" />
@@ -98,11 +104,18 @@ xcopy "lmMatrices\*.inl" "..\bin\include\labMath\" /R /Y /Q</Command>
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="lmMatrices\lmMatrix3.inl" />
+    <None Include="lmIspc\ispcVec2.ispc" />
+    <None Include="lmIspc\ispcVec3.ispc" />
+    <None Include="lmIspc\ispcVec4.ispc" />
     <None Include="lmMatrices\lmMatrix4.inl" />
     <None Include="lmVectors\lmVec2.inl" />
     <None Include="lmVectors\lmVec3.inl" />
     <None Include="lmVectors\lmVec4.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="lmVectors\lmVec2.obj" />
+    <Object Include="lmVectors\lmVec3.obj" />
+    <Object Include="lmVectors\lmVec4.obj" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
