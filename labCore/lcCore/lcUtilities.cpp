@@ -8,13 +8,10 @@
 #include "lcUtilities.h"
 
 #include <Windows.h>
-#include <stdlib.h>
+#include <stdio.h>
+#include <stdarg.h>
 #include <io.h>
 #include <fcntl.h>
-
-#include <fstream>
-#include <iostream>
-#include <string>
 
 #include <D3Dcompiler.h>
 #include "lcRenderer.h"
@@ -96,5 +93,6 @@ void Utilities::ConsoleClear()
 
 void Utilities::PreCompileShader(const char* a_pShaderFile,const char* a_pCompiledFile)
 {
-
+	UNREFERENCED_PARAMETER(a_pShaderFile);
+	UNREFERENCED_PARAMETER(a_pCompiledFile);
 }

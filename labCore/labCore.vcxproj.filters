@@ -17,6 +17,12 @@
     <Filter Include="lcProperties">
       <UniqueIdentifier>{ec43d0e6-727f-4744-ba19-500ebc2f8b89}</UniqueIdentifier>
     </Filter>
+    <Filter Include="lcContainers">
+      <UniqueIdentifier>{0648c195-0205-4c2e-a01a-c7987df9dd1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lcDebugging">
+      <UniqueIdentifier>{5f6137db-a3e7-483b-8f0c-ae8002743ee9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lcCore\lcAppBase.cpp">
@@ -46,13 +52,25 @@
     <ClCompile Include="lcInput\lcMouse.cpp">
       <Filter>lcInput</Filter>
     </ClCompile>
-    <ClCompile Include="lcPrimatives\lcMesh.cpp">
-      <Filter>lcPrimatives</Filter>
-    </ClCompile>
     <ClCompile Include="lcProperties\lcProperty.cpp">
       <Filter>lcProperties</Filter>
     </ClCompile>
     <ClCompile Include="lcProperties\lcShaderProperty.cpp">
+      <Filter>lcProperties</Filter>
+    </ClCompile>
+    <ClCompile Include="lcDebugging\lcAssert.cpp">
+      <Filter>lcDebugging</Filter>
+    </ClCompile>
+    <ClCompile Include="lcDebugging\lcMemTracker.cpp">
+      <Filter>lcDebugging</Filter>
+    </ClCompile>
+    <ClCompile Include="lcCore\lcMesh.cpp">
+      <Filter>lcCore</Filter>
+    </ClCompile>
+    <ClCompile Include="lcGraphics\lcTexture2D.cpp">
+      <Filter>lcGraphics</Filter>
+    </ClCompile>
+    <ClCompile Include="lcProperties\lcTextureProperty.cpp">
       <Filter>lcProperties</Filter>
     </ClCompile>
   </ItemGroup>
@@ -93,9 +111,6 @@
     <ClInclude Include="lcPrimatives\lcMatrix.h">
       <Filter>lcPrimatives</Filter>
     </ClInclude>
-    <ClInclude Include="lcPrimatives\lcMesh.h">
-      <Filter>lcPrimatives</Filter>
-    </ClInclude>
     <ClInclude Include="lcPrimatives\lcQuad.h">
       <Filter>lcPrimatives</Filter>
     </ClInclude>
@@ -106,6 +121,24 @@
       <Filter>lcProperties</Filter>
     </ClInclude>
     <ClInclude Include="lcProperties\lcShaderProperty.h">
+      <Filter>lcProperties</Filter>
+    </ClInclude>
+    <ClInclude Include="lcGraphics\lcScreenMesh.h">
+      <Filter>lcGraphics</Filter>
+    </ClInclude>
+    <ClInclude Include="lcDebugging\lcAssert.h">
+      <Filter>lcDebugging</Filter>
+    </ClInclude>
+    <ClInclude Include="lcDebugging\lcMemTracker.h">
+      <Filter>lcDebugging</Filter>
+    </ClInclude>
+    <ClInclude Include="lcCore\lcMesh.h">
+      <Filter>lcCore</Filter>
+    </ClInclude>
+    <ClInclude Include="lcGraphics\lcTexture2D.h">
+      <Filter>lcGraphics</Filter>
+    </ClInclude>
+    <ClInclude Include="lcProperties\lcTextureProperty.h">
       <Filter>lcProperties</Filter>
     </ClInclude>
   </ItemGroup>

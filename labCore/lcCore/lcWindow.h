@@ -9,33 +9,31 @@
 #define __LCWINDOW_H_
 //--------------------------------------------------------------------------------//
 #include <windows.h>
-#include "lcMouse.h"
+#include "lmCore.h"
 //--------------------------------------------------------------------------------//
 class lcMouse;
 //--------------------------------------------------------------------------------//
 
 class Window
 {
-public:
-	////////////////////////////////////////////////////////////////////////////////
-	// \brief	: Creates a Window Class
-	// \args	: const char* (a_szName)
-	//				Name of the Window
-	////////////////////////////////////////////////////////////////////////////////
-	
+public:	
 	static Window* Create(const char* a_szName, int a_iWidth = 640, int a_iHeight = 480,bool a_bWindowed = true, bool a_bHasBorder = true);
 	static Window* Get();
 	void Release();
 
 	HWND	GetHandle();
-	int		GetWidth();
-	int		GetHeight();
+
+	static int Width();
+	static int Height();
+	static lmVec2 Position();
+
 	bool	IsActive();
 	bool	IsWindowed();
 
 	bool	Tick();
 
-	void AttachMouse(lcMouse *a_pMouse);
+	void EnableFileDrop(bool a_bEnable);
+	void (*OnDropFile)(const char* a_szFileName);
 
 private:
 	Window(const char* a_szName, int a_iWidth, int a_iHeight,bool a_bWindowed, bool a_bHasBorder);
@@ -51,11 +49,11 @@ private:
 	bool	m_bWindowed;
 
 	WNDCLASSEX	sm_oWindowclass;
-
-	static lcMouse*	m_pMouse;
 	
 	static LRESULT CALLBACK WindowProc(HWND Handle, unsigned int msg, WPARAM wParam, LPARAM lParam);
 
+	static void OnDropFileDef(const char* a_szFileName);
+	
 };
 
 //--------------------------------------------------------------------------------//

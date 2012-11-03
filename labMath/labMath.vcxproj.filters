@@ -77,16 +77,22 @@
     <None Include="lmIspc\ispcVec2.ispc">
       <Filter>lmIspc</Filter>
     </None>
+    <None Include="lmIspc\ispcMatrix4.ispc">
+      <Filter>lmIspc</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Object Include="lmVectors\lmVec4.obj">
-      <Filter>lmVectors</Filter>
+    <Object Include="lmIspc\lmVec2.obj">
+      <Filter>lmIspc</Filter>
     </Object>
-    <Object Include="lmVectors\lmVec3.obj">
-      <Filter>lmVectors</Filter>
+    <Object Include="lmIspc\lmVec3.obj">
+      <Filter>lmIspc</Filter>
     </Object>
-    <Object Include="lmVectors\lmVec2.obj">
-      <Filter>lmVectors</Filter>
+    <Object Include="lmIspc\lmVec4.obj">
+      <Filter>lmIspc</Filter>
+    </Object>
+    <Object Include="lmIspc\lmMatrix4.obj">
+      <Filter>lmIspc</Filter>
     </Object>
   </ItemGroup>
 </Project>

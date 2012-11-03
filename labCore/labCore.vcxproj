@@ -12,36 +12,45 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lcCore\lcAppBase.cpp" />
+    <ClCompile Include="lcCore\lcMesh.cpp" />
     <ClCompile Include="lcCore\lcNode.cpp" />
     <ClCompile Include="lcCore\lcTimers.cpp" />
     <ClCompile Include="lcCore\lcUtilities.cpp" />
     <ClCompile Include="lcCore\lcWindow.cpp" />
+    <ClCompile Include="lcDebugging\lcAssert.cpp" />
+    <ClCompile Include="lcDebugging\lcMemTracker.cpp" />
     <ClCompile Include="lcGraphics\lcCamera.cpp" />
     <ClCompile Include="lcGraphics\lcRenderer.cpp" />
+    <ClCompile Include="lcGraphics\lcTexture2D.cpp" />
     <ClCompile Include="lcInput\lcKeyboard.cpp" />
     <ClCompile Include="lcInput\lcMouse.cpp" />
-    <ClCompile Include="lcPrimatives\lcMesh.cpp" />
     <ClCompile Include="lcProperties\lcProperty.cpp" />
     <ClCompile Include="lcProperties\lcShaderProperty.cpp" />
+    <ClCompile Include="lcProperties\lcTextureProperty.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lcCore\lcAppBase.h" />
+    <ClInclude Include="lcCore\lcMesh.h" />
     <ClInclude Include="lcCore\lcNode.h" />
     <ClInclude Include="lcCore\lcTimers.h" />
     <ClInclude Include="lcCore\lcUtilities.h" />
     <ClInclude Include="lcCore\lcWindow.h" />
+    <ClInclude Include="lcDebugging\lcAssert.h" />
+    <ClInclude Include="lcDebugging\lcMemTracker.h" />
     <ClInclude Include="lcGraphics\lcCamera.h" />
     <ClInclude Include="lcGraphics\lcRenderer.h" />
+    <ClInclude Include="lcGraphics\lcScreenMesh.h" />
+    <ClInclude Include="lcGraphics\lcTexture2D.h" />
     <ClInclude Include="lcInput\lcKeyboard.h" />
     <ClInclude Include="lcInput\lcMouse.h" />
     <ClInclude Include="lcPrimatives\lcCube.h" />
     <ClInclude Include="lcPrimatives\lcLine.h" />
     <ClInclude Include="lcPrimatives\lcMatrix.h" />
-    <ClInclude Include="lcPrimatives\lcMesh.h" />
     <ClInclude Include="lcPrimatives\lcQuad.h" />
     <ClInclude Include="lcPrimatives\lcTriangle.h" />
     <ClInclude Include="lcProperties\lcProperty.h" />
     <ClInclude Include="lcProperties\lcShaderProperty.h" />
+    <ClInclude Include="lcProperties\lcTextureProperty.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{03201828-8B45-4B10-8AD6-C3EB8E7F42AD}</ProjectGuid>
@@ -70,18 +79,21 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)bin\</OutDir>
+    <OutDir>$(SolutionDir)bin\lib\</OutDir>
     <TargetName>$(ProjectName)_d</TargetName>
+    <IntDir>$(SolutionDir)\$(Configuration)\$(TargetName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <TargetName>$(ProjectName)</TargetName>
-    <OutDir>$(SolutionDir)bin\</OutDir>
+    <OutDir>$(SolutionDir)bin\lib\</OutDir>
+    <IntDir>$(SolutionDir)\$(Configuration)\$(TargetName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>.\lcCore\;.\lcInput\;.\lcGraphics\;.\lcProperties\;.\lcPrimatives\;$(DXSDK_DIR)Include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\lcCore\;.\lcInput\;.\lcGraphics\;.\lcProperties\;.\lcPrimatives\;.\lcDebugging\;$(SolutionDir)bin\include\thirdparty\;$(SolutionDir)bin\include\labMath\;$(DXSDK_DIR)Include\</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4201</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -93,8 +105,14 @@
 xcopy "lcGraphics\*.h" "..\bin\include\labCore\" /R /Y /Q
 xcopy "lcInput\*.h" "..\bin\include\labCore\" /R /Y /Q
 xcopy "lcPrimatives\*.h" "..\bin\include\labCore\" /R /Y /Q
-xcopy "lcProperties\*.h" "..\bin\include\labCore\" /R /Y /Q</Command>
+xcopy "lcProperties\*.h" "..\bin\include\labCore\" /R /Y /Q
+xcopy "lcDebugging\*.h" "..\bin\include\labCore\" /R /Y /Q</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <Lib />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -102,7 +120,7 @@ xcopy "lcProperties\*.h" "..\bin\include\labCore\" /R /Y /Q</Command>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>.\lcCore\;.\lcInput\;.\lcGraphics\;.\lcProperties\;.\lcPrimatives\;$(DXSDK_DIR)Include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\lcCore\;.\lcInput\;.\lcGraphics\;.\lcProperties\;.\lcPrimatives\;.\lcDebugging\;$(SolutionDir)bin\include\thirdparty\;$(SolutionDir)bin\include\labMath\;$(DXSDK_DIR)Include\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

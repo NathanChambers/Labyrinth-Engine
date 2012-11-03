@@ -1,4 +1,6 @@
 #include "lmVec4.h"
+#include "lmVec3.h"
+#include "lmVec2.h"
 
 inline
 lmVec4::lmVec4()
@@ -56,7 +58,7 @@ inline
 lmVec4& lmVec4::operator = (float* a_pfArgL)
 {
 	x = a_pfArgL[0];
-	y = a_pfArgL[1];
+ 	y = a_pfArgL[1];
 	z = a_pfArgL[2];
 	w = a_pfArgL[3];
 	return (*this);
@@ -166,6 +168,18 @@ lmVec4::operator float *()
 	return v;
 }
 
+//inline
+//lmVec4::operator lmVec3() const
+//{
+//	return lmVec3((*this));
+//}
+//
+//inline
+//lmVec4::operator lmVec2() const
+//{
+//	return lmVec2((*this));
+//}
+
 inline
 float lmVec4::Length() const
 {
@@ -207,5 +221,13 @@ lmVec4 lmVec4::CrossProduct(const lmVec4& ac_rkArgL,const lmVec4& ac_rkArgR) con
 {
 	lmVec4 rkRetVec4;
 	lmVec4CrossProduct(rkRetVec4,ac_rkArgL,ac_rkArgR);
+	return rkRetVec4;
+}
+
+inline
+lmVec4 lmVec4::Lerp(const lmVec4& ac_rkArgL,float a_fLerp)
+{
+	lmVec4 rkRetVec4;
+	lmVec4Lerp(rkRetVec4,(*this),ac_rkArgL,a_fLerp);
 	return rkRetVec4;
 }

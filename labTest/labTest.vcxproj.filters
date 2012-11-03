@@ -4,6 +4,18 @@
     <Filter Include="Source">
       <UniqueIdentifier>{bae5d451-0999-486a-8817-d8392706c95d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="data">
+      <UniqueIdentifier>{87c17b78-d95f-41f8-a192-883d580254bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="data\shaders">
+      <UniqueIdentifier>{d0d136b6-8c82-41ba-8abc-978a472e195b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty">
+      <UniqueIdentifier>{4216a238-f580-4626-bcd3-0e0c093b5d3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="data\textures">
+      <UniqueIdentifier>{2fac3c6e-f728-487e-8c5b-583e9d44579f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -17,5 +29,34 @@
     <ClInclude Include="Application.h">
       <Filter>Source</Filter>
     </ClInclude>
+    <ClInclude Include="thirdparty\include\AntTweakBar.h">
+      <Filter>ThirdParty</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bin\include\thirdparty\FreeImage.h">
+      <Filter>ThirdParty</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\bin\exe\data\shaders\Base.hlsl">
+      <Filter>data\shaders</Filter>
+    </None>
+    <None Include="..\bin\exe\data\shaders\Julia.hlsl">
+      <Filter>data\shaders</Filter>
+    </None>
+    <None Include="..\bin\exe\data\shaders\MandelBrot.hlsl">
+      <Filter>data\shaders</Filter>
+    </None>
+    <None Include="..\bin\exe\data\shaders\Diff.hlsl">
+      <Filter>data\shaders</Filter>
+    </None>
+    <None Include="..\bin\exe\data\shaders\Edge.hlsl">
+      <Filter>data\shaders</Filter>
+    </None>
+    <None Include="..\bin\exe\data\textures\crate.jpg">
+      <Filter>data\textures</Filter>
+    </None>
+    <None Include="..\bin\exe\data\textures\dev01.png">
+      <Filter>data\textures</Filter>
+    </None>
   </ItemGroup>
 </Project>

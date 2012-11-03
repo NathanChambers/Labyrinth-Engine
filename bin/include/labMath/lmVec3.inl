@@ -60,6 +60,15 @@ lmVec3& lmVec3::operator = (float* a_pfArgL)
 }
 
 inline
+lmVec3& lmVec3::operator = (const float* a_pfArgL)
+{
+	x = a_pfArgL[0];
+	y = a_pfArgL[1];
+	z = a_pfArgL[2];
+	return (*this);
+}
+
+inline
 lmVec3 lmVec3::operator + (const lmVec3& ac_rkArgL) const
 {
 	lmVec3 rkRetVec3;

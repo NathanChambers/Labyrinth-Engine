@@ -19,35 +19,25 @@ public:
 	virtual ~lcNode();	
 
 	virtual void Update();
+	virtual void UpdateProperties();
+
 	virtual lcNode* Clone();
 	
 	std::string GetName();
 	void SetName(const char* a_pName);
 
-	D3DXMATRIX GetTransform();
+	//Translate
+	void SetTranslate(D3DXVECTOR3 a_kTranslate);
 	D3DXVECTOR3 GetTranslate();
+
+	//Rotate
+	void SetRotate(D3DXMATRIX a_kRotate);
 	D3DXMATRIX GetRotate();
-	D3DXMATRIX GetWorldTransform();
-	D3DXVECTOR3 GetWorldTranslate();
-	D3DXMATRIX GetWorldRotate();
 
-	void GetTransform(D3DXMATRIX& Transform);
-	void GetTranslate(D3DXVECTOR3& Position);
-	void GetRotate(D3DXMATRIX& Rotation);
-	void GetWorldTransform(D3DXMATRIX& Transform);
-	void GetWorldTranslate(D3DXVECTOR3& Position);
-	void GetWorldRotate(D3DXMATRIX& Rotation);
+	//Transform
+	D3DXMATRIX GetTransform();
 
-	void SetTransform(D3DXMATRIX& Transform);
-	void SetTranslate(D3DXVECTOR3& Position);
-	void SetTranslate(float X,float Y,float Z);
-
-	void SetRotate(D3DXMATRIX& Rotation);
-	void SetRotate(D3DXQUATERNION& Rotation);
-	void SetRotateX(float Angle);
-	void SetRotateY(float Angle);
-	void SetRotateZ(float Angle);
-
+	//Parenting
 	lcNode* GetParent();
 	void AttachChild(lcNode*);
 	void DetachChild(lcNode*);
@@ -65,11 +55,11 @@ protected:
 	std::list<lcNode*>		m_pChildren;
 	unsigned int			m_uiChildCount;
 	
-	D3DXMATRIX				m_mLocalTranslate;
+	D3DXVECTOR3				m_kLocalTranslate;
 	D3DXMATRIX				m_mLocalRotate;
 	D3DXMATRIX				m_mLocalTransform;
 
-	D3DXMATRIX				m_mWorldTranslate;
+	D3DXVECTOR3				m_mWorldTranslate;
 	D3DXMATRIX				m_mWorldRotate;
 	D3DXMATRIX				m_mWorldTransform;
 };

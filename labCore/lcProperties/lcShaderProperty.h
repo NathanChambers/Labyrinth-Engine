@@ -10,6 +10,7 @@
 #define __LCSHADERPROPERTY_H_
 //--------------------------------------------------------------------------------//
 #include "lcProperty.h"
+#include <D3DX11.h>
 #include <map>
 //--------------------------------------------------------------------------------//
 enum eShaderType
@@ -33,6 +34,8 @@ public:
 	ID3D11PixelShader* GetPixelShader();
 	ID3D11InputLayout* GetInputLayout();
 
+	bool LoadFromFile(const char* a_szFileName);
+
 private:
 	struct CBuffer
 	{
@@ -43,9 +46,9 @@ private:
 
 	ShaderProperty(const char* a_pFileName,bool a_bCompileFile = true);
 	
-	void CompileVertexShader(const char* a_pFileName);
-	void CompilePixelShader(const char* a_pFileName);
-	void InputLayoutFromShaderByteCode(ID3DBlob* a_pShaderByteCode);
+	bool CompileVertexShader(ID3D11VertexShader** a_pkVertexShader,ID3D11InputLayout** a_pkInputLayout,const char* a_pFileName);
+	bool CompilePixelShader(ID3D11PixelShader** a_pkPixelShader,const char* a_pFileName);
+	bool InputLayoutFromShaderByteCode(ID3D11InputLayout** a_pkInputLayout,ID3DBlob* a_pShaderByteCode);
 
 	std::map<const char*,CBuffer> m_aCBuffers;
 
@@ -55,10 +58,6 @@ private:
 
 	bool					m_bCompileFile;
 };
-
-//--------------------------------------------------------------------------------//
-//Inline Functions
-
 //--------------------------------------------------------------------------------//
 #endif//__SHADERPROPERTY_H_
 //--------------------------------------------------------------------------------//

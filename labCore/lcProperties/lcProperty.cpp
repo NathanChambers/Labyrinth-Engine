@@ -22,7 +22,7 @@ Property::~Property()
 
 //--------------------------------------------------------------------------------//
 
-PROPERTY_TYPES Property::GetType()
+LC_PROPERTY_TYPES Property::GetType()
 {
 	return m_eType;
 }

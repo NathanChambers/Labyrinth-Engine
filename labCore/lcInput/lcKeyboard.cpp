@@ -6,6 +6,7 @@
 //
 //--------------------------------------------------------------------------------//
 #include "lcKeyboard.h"
+#include "lcWindow.h"
 #include <windows.h>
 //--------------------------------------------------------------------------------//
 lcKeyboard* lcKeyboard::m_pSingleton = 0;
@@ -53,6 +54,9 @@ void lcKeyboard::Release()
 
 void lcKeyboard::Update()
 {
+	if (!Window::Get()->IsActive())
+		return;
+
 	for(int i = 0;i < 256;i++)
 	{
 		m_uiKeysPrev[i] = m_uiKeysCurr[i];
@@ -69,7 +73,7 @@ void lcKeyboard::Update()
 
 bool lcKeyboard::IsKeyDown(short a_oKey)
 {
-	if(m_uiKeysCurr[a_oKey] && m_uiKeysPrev[a_oKey])
+	if(m_pSingleton->m_uiKeysCurr[a_oKey] && m_pSingleton->m_uiKeysPrev[a_oKey])
 	{
 		return true;
 	}
@@ -80,7 +84,7 @@ bool lcKeyboard::IsKeyDown(short a_oKey)
 
 bool lcKeyboard::IsKeyUp(short a_oKey)
 {
-	if(!m_uiKeysCurr[a_oKey] && !m_uiKeysPrev[a_oKey])
+	if(!m_pSingleton->m_uiKeysCurr[a_oKey] && !m_pSingleton->m_uiKeysPrev[a_oKey])
 	{
 		return true;
 	}
@@ -91,7 +95,7 @@ bool lcKeyboard::IsKeyUp(short a_oKey)
 
 bool lcKeyboard::IsKeyPressed(short a_oKey)
 {
-	if(m_uiKeysCurr[a_oKey] && !m_uiKeysPrev[a_oKey])
+	if(m_pSingleton->m_uiKeysCurr[a_oKey] && !m_pSingleton->m_uiKeysPrev[a_oKey])
 	{
 		return true;
 	}
@@ -102,7 +106,7 @@ bool lcKeyboard::IsKeyPressed(short a_oKey)
 
 bool lcKeyboard::IsKeyReleased(short a_oKey)
 {
-	if(!m_uiKeysCurr[a_oKey] && m_uiKeysPrev[a_oKey])
+	if(!m_pSingleton->m_uiKeysCurr[a_oKey] && m_pSingleton->m_uiKeysPrev[a_oKey])
 	{
 		return true;
 	}

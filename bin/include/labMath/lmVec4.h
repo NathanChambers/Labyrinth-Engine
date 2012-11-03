@@ -3,12 +3,14 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
+class lmVec3;
+class lmVec2;
 
 ////////////////////////////////////////////////////////////////////////////////
 //lmVec4 Dec
 class lmVec4
 {
-	friend class LmBoot;
+	friend class lmBoot;
 public:
 	//Constructors
 	lmVec4();
@@ -54,24 +56,29 @@ public:
 	float Length() const;
 	float LenghtSqr() const;
 
+	lmVec4 Lerp(const lmVec4&,float);
+
 	//Operators
-	lmVec4 operator + (const lmVec4&) const;
-	lmVec4 operator - (const lmVec4&) const;
-	lmVec4& operator += (const lmVec4&);
-	lmVec4& operator -= (const lmVec4&);
+	operator float* ();
+	operator const float*() const;
 
-	lmVec4 operator * (float) const;
-	lmVec4 operator / (float) const;
-	lmVec4& operator *= (float);
-	lmVec4& operator /= (float);
-
-	lmVec4 operator - ();
+	//operator lmVec3() const;
+	//operator lmVec2() const;
 
 	float& operator [] (unsigned int);
 	const float& operator [] (unsigned int) const;
 
-	operator float* ();
-	operator const float*() const;
+	lmVec4& operator += (const lmVec4&);
+	lmVec4& operator -= (const lmVec4&);
+	lmVec4& operator *= (float);
+	lmVec4& operator /= (float);
+
+	lmVec4 operator + (const lmVec4&) const;
+	lmVec4 operator - (const lmVec4&) const;
+	lmVec4 operator * (float) const;
+	lmVec4 operator / (float) const;
+
+	lmVec4 operator - ();
 
 	bool operator == (const lmVec4&) const;
 	bool operator != (const lmVec4&) const;
@@ -86,7 +93,8 @@ typedef bool (*lmVec4_Bool_CVec4_CVec4)(const lmVec4&,const lmVec4&);
 
 typedef void (*lmVec4_Void_Vec4_CVec4)(lmVec4&,const lmVec4&);
 typedef void (*lmVec4_Void_Vec4_CVec4_Float)(lmVec4&,const lmVec4&,float);
-typedef void (*lmVec4_Void_Vec4_CVec4_CVec4)(lmVec4&,const lmVec4&,const lmVec4&);		
+typedef void (*lmVec4_Void_Vec4_CVec4_CVec4)(lmVec4&,const lmVec4&,const lmVec4&);
+typedef void (*lmVec4_Void_Vec4_CVec4_CVec4_Float)(lmVec4&,const lmVec4&,const lmVec4&,float);
 
 typedef float (*lmVec4_Float_CVec4)(const lmVec4&);
 typedef float (*lmVec4_Float_CVec4_CVec4)(const lmVec4&,const lmVec4&);
@@ -122,6 +130,10 @@ extern lmVec4_Float_CVec4 lmVec4LengthSqr;
 ////////////////////////////////////////////////////////////////////////////////
 //float (cosnt lmVec4&, const lmVec4&)
 extern lmVec4_Float_CVec4_CVec4 lmVec4DotProduct;
+
+////////////////////////////////////////////////////////////////////////////////
+//void (lmVec4&,const lmVec4&,const lmVec4&,float)
+extern lmVec4_Void_Vec4_CVec4_CVec4_Float lmVec4Lerp;
 
 #include "lmVec4.inl"
 

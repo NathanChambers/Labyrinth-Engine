@@ -12,8 +12,8 @@ public:
 
 	void Update();
 
-	static double DeltaTime();
-	static double CurrentTime();
+	static float DeltaTime();
+	static float ElapsedTime();
 
 private:
 	static lcTime* m_pSingleton;
@@ -22,8 +22,8 @@ private:
 	~lcTime();
 
 	LARGE_INTEGER m_liPrev;
-	double m_dDelta;
-	double m_dCurrent;
+	float m_fDelta;
+	float m_fElapsed;
 };
 
 

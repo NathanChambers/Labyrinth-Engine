@@ -7,9 +7,12 @@
 //
 //--------------------------------------------------------------------------------//
 #include "lcShaderProperty.h"
+#include "lcProperty.h"
+
 #include <vector>
 #include <D3Dcompiler.h>
 #include "lcRenderer.h"
+#include "lcAssert.h"
 
 
 #include <fstream>
@@ -22,11 +25,11 @@
 ShaderProperty::ShaderProperty(const char* a_pFileName,bool a_bCompileFile)
 	: m_bCompileFile(a_bCompileFile)
 {
-	m_eType = PROPERTY_SHADER;
+	m_eType = LC_PROPERTY_SHADER;
 	m_bCompileFile = a_bCompileFile;
 
-	CompileVertexShader(a_pFileName);
-	CompilePixelShader(a_pFileName);
+	CompileVertexShader(&m_pVertexShader,&m_pInputLayout,a_pFileName);
+	CompilePixelShader(&m_pPixelShader,a_pFileName);
 }
 
 //--------------------------------------------------------------------------------//
@@ -69,7 +72,7 @@ ID3D11InputLayout* ShaderProperty::GetInputLayout()
 
 //--------------------------------------------------------------------------------//
 
-void ShaderProperty::CompileVertexShader(const char* a_pFileName)
+bool ShaderProperty::CompileVertexShader(ID3D11VertexShader** a_pkVertexShader,ID3D11InputLayout** a_pkInputLayout,const char* a_pFileName)
 {
 	ID3D10Blob* pErrorBlob = 0;
 	ID3D10Blob* pVertexShaderByteCode = 0;
@@ -111,8 +114,9 @@ void ShaderProperty::CompileVertexShader(const char* a_pFileName)
 				Utilities::Debug_OutputWrite("%s File Could Not Be Found \n",a_pFileName);
 			}
 
-			assert(!"Shader Loading Error, Check Output");
+			lcAssert("Shader Loading Error, Check Output");
 			pErrorBlob->Release();
+			return false;
 		}
 
 
@@ -120,12 +124,13 @@ void ShaderProperty::CompileVertexShader(const char* a_pFileName)
 		ID3D11Device* pDevice = lcRenderer::GetDevice();
 		if(pVertexShaderByteCode)
 		{
-			if(FAILED(pDevice->CreateVertexShader(pVertexShaderByteCode->GetBufferPointer(),pVertexShaderByteCode->GetBufferSize(),NULL,&m_pVertexShader)))
+			if(FAILED(pDevice->CreateVertexShader(pVertexShaderByteCode->GetBufferPointer(),pVertexShaderByteCode->GetBufferSize(),NULL,a_pkVertexShader)))
 			{
 				Utilities::Debug_ConsoleWrite("VERTEX SHADER \" %s \" WAS UNSUCCESSFULL \n",a_pFileName);
+				return false;
 			}
 
-			InputLayoutFromShaderByteCode(pVertexShaderByteCode);
+			InputLayoutFromShaderByteCode(a_pkInputLayout,pVertexShaderByteCode);
 			pVertexShaderByteCode->Release(); 
 		}
 	}
@@ -133,11 +138,13 @@ void ShaderProperty::CompileVertexShader(const char* a_pFileName)
 	{
 		//Pre compiled Shader loading
 	}
+
+	return true;
 }
 
 //--------------------------------------------------------------------------------//
 
-void ShaderProperty::CompilePixelShader(const char* a_pFileName)
+bool ShaderProperty::CompilePixelShader(ID3D11PixelShader** a_pkPixelShader,const char* a_pFileName)
 {
 	ID3D10Blob* pErrorBlob = 0;
 	ID3D10Blob* pPixelShaderByteCode = 0;
@@ -177,17 +184,19 @@ void ShaderProperty::CompilePixelShader(const char* a_pFileName)
 				Utilities::Debug_OutputWrite("%s File Could Not Be Found \n",a_pFileName);
 			}
 
-			assert(!"Shader Loading Error, Check Output");
+			lcAssert("Shader Loading Error, Check Output");
 			pErrorBlob->Release();
+			return false;
 		}
 
 		//Creating the Pixel Shader to be put in the mesh for rendering
 		ID3D11Device* pDevice = lcRenderer::GetDevice();
 		if(pPixelShaderByteCode)
 		{
-			if(FAILED(pDevice->CreatePixelShader(pPixelShaderByteCode->GetBufferPointer(),pPixelShaderByteCode->GetBufferSize(),NULL,&m_pPixelShader)))
+			if(FAILED(pDevice->CreatePixelShader(pPixelShaderByteCode->GetBufferPointer(),pPixelShaderByteCode->GetBufferSize(),NULL,a_pkPixelShader)))
 			{
 				Utilities::Debug_ConsoleWrite("PIXEL SHADER \" %s \" WAS UNSUCCESSFULL \n",a_pFileName);
+				return false;
 			}
 		}
 	}
@@ -196,11 +205,12 @@ void ShaderProperty::CompilePixelShader(const char* a_pFileName)
 		//Add Pre Compiled Loading
 	}
 
+	return true;
 }
 
 //--------------------------------------------------------------------------------//
 
-void ShaderProperty::InputLayoutFromShaderByteCode(ID3DBlob* a_pShaderByteCode)
+bool ShaderProperty::InputLayoutFromShaderByteCode(ID3D11InputLayout** a_pkInputLayout,ID3DBlob* a_pShaderByteCode)
 {
 	//Reflect Shader Info
 	ID3D11ShaderReflection* pVertexShaderReflection = NULL;
@@ -208,7 +218,7 @@ void ShaderProperty::InputLayoutFromShaderByteCode(ID3DBlob* a_pShaderByteCode)
 	if(FAILED(D3DReflect(a_pShaderByteCode->GetBufferPointer(),a_pShaderByteCode->GetBufferSize(),
 		IID_ID3D11ShaderReflection,(void**)&pVertexShaderReflection)))
 	{
-		return;
+		return false;
 	}
 
 	//Get Shader Info
@@ -216,7 +226,6 @@ void ShaderProperty::InputLayoutFromShaderByteCode(ID3DBlob* a_pShaderByteCode)
 	pVertexShaderReflection->GetDesc(&shaderDesc);
 
 	//Read Input Layout Desc from Shader Info
-	unsigned int byteOffset = 0;
 	std::vector<D3D11_INPUT_ELEMENT_DESC> inputLayoutDesc;
 	for(unsigned int i = 0; i < shaderDesc.InputParameters;i++)
 	{
@@ -277,12 +286,14 @@ void ShaderProperty::InputLayoutFromShaderByteCode(ID3DBlob* a_pShaderByteCode)
 	//Create Input Layout
 	ID3D11Device* pDevice = lcRenderer::GetDevice();
 	if(FAILED(pDevice->CreateInputLayout(&inputLayoutDesc[0],inputLayoutDesc.size(),
-		a_pShaderByteCode->GetBufferPointer(),a_pShaderByteCode->GetBufferSize(),&m_pInputLayout)))
+		a_pShaderByteCode->GetBufferPointer(),a_pShaderByteCode->GetBufferSize(),a_pkInputLayout)))
 	{
-		return;
+		return false;
 	}
 
 	pVertexShaderReflection->Release();
+
+	return true;
 }
 
 //--------------------------------------------------------------------------------//
@@ -347,3 +358,24 @@ void ShaderProperty::UpdateCBuffer(const char* a_pBufferName,eShaderType a_eShad
 }
 
 //--------------------------------------------------------------------------------//
+
+bool ShaderProperty::LoadFromFile(const char* a_szFileDir)
+{
+	bool PassedVertex = false,PassedPixel = false;
+
+	ID3D11VertexShader* pkNewVertexShader;
+	ID3D11InputLayout* pkNewInputLayout;
+	ID3D11PixelShader* pkNewPixelShader;
+
+	PassedVertex = CompileVertexShader(&pkNewVertexShader,&pkNewInputLayout,a_szFileDir);
+	PassedPixel = CompilePixelShader(&pkNewPixelShader,a_szFileDir);
+
+	if(PassedVertex && PassedPixel)
+	{
+		m_pVertexShader = pkNewVertexShader;
+		m_pInputLayout = pkNewInputLayout;
+		m_pPixelShader = pkNewPixelShader;
+		return true;
+	}
+	return false;
+}

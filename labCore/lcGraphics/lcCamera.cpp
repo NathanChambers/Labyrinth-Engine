@@ -9,6 +9,7 @@
 #include "lcMouse.h"
 #include "lcKeyboard.h"
 #include "lcTimers.h"
+#include "lmCore.h"
 //--------------------------------------------------------------------------------//
 
 lcCamera* lcCamera::Create(const lcFrustrum& a_kFustrum)
@@ -48,8 +49,7 @@ void lcCamera::Update()
 	D3DXVec3TransformCoord(&vLookAt,&vLookAt,&m_mLocalRotate);
 	D3DXVec3TransformCoord(&vUp,&vUp,&m_mLocalRotate);
 
-	D3DXVECTOR3 vCamPos;
-	GetTranslate(vCamPos);
+	D3DXVECTOR3 vCamPos = GetTranslate();
 	vLookAt = vCamPos + vLookAt;
 
 	D3DXMatrixLookAtLH(&m_mView,&vCamPos,&vLookAt,&vUp);
@@ -57,13 +57,15 @@ void lcCamera::Update()
 	D3DXMatrixPerspectiveFovLH(&m_mProj,
 		m_oFustrum.m_fFieldOfView,m_oFustrum.m_fScreenAspect,
 		m_oFustrum.m_fNear,m_oFustrum.m_fFar);
+
+	D3DXMatrixMultiply(&m_mViewProj,&m_mView,&m_mProj);
 }
 
 //--------------------------------------------------------------------------------//
 
-void lcCamera::FreeLookCamera(lcCamera* TargetCamera,float a_fMovementSpeed)
+void lcCamera::FreeLookCamera(lcCamera* TargetCamera,float a_fMovementSpeed,float a_fSensitivity)
 {
-	if(lcKeyboard::Get()->IsKeyDown((char)KEY_LSHIFT))
+	if(lcKeyboard::Get()->IsKeyDown(KEY_LSHIFT))
 	{
 		a_fMovementSpeed *= 2;
 	}
@@ -75,30 +77,32 @@ void lcCamera::FreeLookCamera(lcCamera* TargetCamera,float a_fMovementSpeed)
 	D3DXVECTOR3 vRight(mRotate._11,mRotate._12,mRotate._13);
 	D3DXVECTOR3 vUp(0,1,0);
 
-	if(lcMouse::Get()->IsScrollingUp())
-		mTranslate += vForward * a_fMovementSpeed;
+	if(lcKeyboard::IsKeyDown(KEY_LSHIFT))
+		a_fMovementSpeed *= 2.0f;
 
-	if(lcMouse::Get()->IsScrollingDown())
-		mTranslate -= vForward * a_fMovementSpeed;
-	
-	if(lcKeyboard::Get()->IsKeyDown(KEY_W))
-		mTranslate += vForward * (float)lcTime::DeltaTime() * a_fMovementSpeed;
-	
-	if(lcKeyboard::Get()->IsKeyDown(KEY_S))
-		mTranslate -= vForward * (float)lcTime::DeltaTime() * a_fMovementSpeed;
-	
-	if(lcKeyboard::Get()->IsKeyDown(KEY_D))
-		mTranslate += vRight * (float)lcTime::DeltaTime() * a_fMovementSpeed;
-	
-	if(lcKeyboard::Get()->IsKeyDown(KEY_A))
-		mTranslate -= vRight * (float)lcTime::DeltaTime() * a_fMovementSpeed;
+	if(lcMouse::IsScrollingUp())
+		mTranslate += vForward * a_fMovementSpeed * 0.5f;
 
-	if(lcKeyboard::Get()->IsKeyDown(KEY_E))
-		mTranslate += vUp * (float)lcTime::DeltaTime() * a_fMovementSpeed;
-
-	if(lcKeyboard::Get()->IsKeyDown(KEY_Q))
-		mTranslate -= vUp * (float)lcTime::DeltaTime() * a_fMovementSpeed;
+	if(lcMouse::IsScrollingDown())
+		mTranslate -= vForward * a_fMovementSpeed * 0.5f;
 	
+	if(lcKeyboard::IsKeyDown(KEY_W))
+		mTranslate += vForward * lcTime::DeltaTime() * a_fMovementSpeed;
+	
+	if(lcKeyboard::IsKeyDown(KEY_S))
+		mTranslate -= vForward * lcTime::DeltaTime() * a_fMovementSpeed;
+	
+	if(lcKeyboard::IsKeyDown(KEY_D))
+		mTranslate += vRight * lcTime::DeltaTime() * a_fMovementSpeed;
+	
+	if(lcKeyboard::IsKeyDown(KEY_A))
+		mTranslate -= vRight * lcTime::DeltaTime() * a_fMovementSpeed;
+
+	if(lcKeyboard::IsKeyDown(KEY_E))
+		mTranslate += vUp * lcTime::DeltaTime() * a_fMovementSpeed;
+
+	if(lcKeyboard::IsKeyDown(KEY_Q))
+		mTranslate -= vUp * lcTime::DeltaTime() * a_fMovementSpeed;
 
 	if(lcMouse::Get()->IsButtonDown(lcMouse::RIGHT))
 	{
@@ -107,12 +111,12 @@ void lcCamera::FreeLookCamera(lcCamera* TargetCamera,float a_fMovementSpeed)
 		
 		D3DXMATRIX mYaw;
 		D3DXVECTOR3 vYAxis(0,1,0);
-		D3DXMatrixRotationAxis(&mYaw,&vYAxis,(3.145f * (iXMovement * (float)lcTime::DeltaTime())) * a_fMovementSpeed);
+		D3DXMatrixRotationAxis(&mYaw,&vYAxis,(LM_PI * (iXMovement * (float)lcTime::DeltaTime() * a_fSensitivity)));
 		D3DXMatrixMultiply(&mRotate,&mRotate,&mYaw);
 
 		D3DXMATRIX mPitch;
 		D3DXVECTOR3 vXAxis(mRotate._11,mRotate._12,mRotate._13);
-		D3DXMatrixRotationAxis(&mPitch,&vXAxis,(3.145f * (iYMovement * (float)lcTime::DeltaTime())) * a_fMovementSpeed);
+		D3DXMatrixRotationAxis(&mPitch,&vXAxis,(LM_PI * (iYMovement * (float)lcTime::DeltaTime() * a_fSensitivity)));
 		D3DXMatrixMultiply(&mRotate,&mRotate,&mPitch);
 	}
 
@@ -164,9 +168,9 @@ void lcCamera::GetProjection(D3DXMATRIX& a_mProj)
 
 //--------------------------------------------------------------------------------//
 
-void lcCamera::GetViewProj(D3DXMATRIX& a_mProj)
+void lcCamera::GetViewProj(D3DXMATRIX& a_mViewProj)
 {
-	D3DXMatrixMultiply(&a_mProj,&m_mView,&m_mProj);
+	a_mViewProj = m_mViewProj;
 }
 
 //--------------------------------------------------------------------------------//

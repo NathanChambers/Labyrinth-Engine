@@ -1,6 +1,8 @@
 #include "lmVec4.h"
 #include "lmCore.h"
 
+extern bool g_bCoreRunning = true;
+
 const lmVec4 lmVec4::ZERO = lmVec4(0,0,0,1);
 const lmVec4 lmVec4::POSX = lmVec4(1,0,0,1);
 const lmVec4 lmVec4::POSY = lmVec4(0,1,0,1);
@@ -134,6 +136,14 @@ void std_lmVec4CrossProduct(lmVec4& a_rkArgOut,const lmVec4& ac_rkArgL,const lmV
 		(ac_rkArgL.x * ac_rkArgR.y) - (ac_rkArgL.y * ac_rkArgR.x));
 }
 
+void std_lmVec4Lerp(lmVec4& a_rkArgOut,const lmVec4& ac_rkArgL,const lmVec4& ac_rkArgR,float a_fLerp)
+{
+	a_rkArgOut.x = (ac_rkArgL.x - (ac_rkArgR.x * a_fLerp));
+	a_rkArgOut.y = (ac_rkArgL.y - (ac_rkArgR.y * a_fLerp));
+	a_rkArgOut.z = (ac_rkArgL.z - (ac_rkArgR.z * a_fLerp));
+	a_rkArgOut.w = (ac_rkArgL.w - (ac_rkArgR.w * a_fLerp));
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 
 #ifdef __cplusplus
@@ -154,6 +164,7 @@ extern "C"
 		extern void ispcVec4Maximise(float* a_pkArgOut,const float* ac_pkArgL);
 		extern void ispcVec4Minimise(float* a_pkArgOut,const float* ac_pkArgL);
 		extern void ispcVec4CrossProduct(float* a_pkArgOut,const float* ac_pkArgL,const float* ac_pkArgR);
+		extern void ispcVec4Lerp(float* a_pkArgOut,const float* ac_pkArgL,const float* ac_pkArgR,float a_fLerp);
 	#ifdef __cplusplus
 }
 #endif // __cplusplus
@@ -228,6 +239,11 @@ void ispc_lmVec4CrossProject(lmVec4& a_rkArgOut,const lmVec4& ac_rkArgL,const lm
 	ispcVec4CrossProduct(a_rkArgOut,ac_rkArgL,ac_rkArgR);
 }
 
+void ispc_lmVec4Lerp(lmVec4& a_rkArgOut,const lmVec4& ac_rkArgL,const lmVec4& ac_rkArgR,float a_fLerp)
+{
+	ispcVec4Lerp(a_rkArgOut,ac_rkArgL,ac_rkArgR,a_fLerp);
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 
 //bool(const lmVec4&, const lmVec4&)
@@ -256,6 +272,9 @@ lmVec4_Float_CVec4 lmVec4LengthSqr = nullptr;
 //float (cosnt lmVec4&, const lmVec4&)
 lmVec4_Float_CVec4_CVec4 lmVec4DotProduct = nullptr;
 
+//void (lmVec4&, const lmVec4&, const lmVec4&, float)
+lmVec4_Void_Vec4_CVec4_CVec4_Float lmVec4Lerp = nullptr;
+
 void lmVec4::Construct()
 {
 	switch(lmGetIntrinsic())
@@ -281,7 +300,7 @@ void lmVec4::Construct()
 
 			lmVec4DotProduct = &std_lmVec4DotProduct;
 			lmVec4CrossProduct = &std_lmVec4CrossProduct;
-
+			lmVec4Lerp = &std_lmVec4Lerp;
 			break;
 		}
 
@@ -306,7 +325,7 @@ void lmVec4::Construct()
 
 			lmVec4DotProduct = &ispc_lmVec4DotProduct;
 			lmVec4CrossProduct = &ispc_lmVec4CrossProject;
-
+			lmVec4Lerp = &ispc_lmVec4Lerp;
 			break;
 		}
 	default:
@@ -330,6 +349,7 @@ void lmVec4::Construct()
 
 			lmVec4DotProduct = nullptr;
 			lmVec4CrossProduct = nullptr;
+			lmVec4Lerp = nullptr;
 			break;
 		}
 	}

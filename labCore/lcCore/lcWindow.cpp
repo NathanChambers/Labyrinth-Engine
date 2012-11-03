@@ -6,8 +6,9 @@
 //
 //--------------------------------------------------------------------------------//
 #include "lcWindow.h"
+#include "lcMouse.h"
+#include "AntTweakBar.h"
 //--------------------------------------------------------------------------------//
-lcMouse* Window::m_pMouse = 0;
 Window* Window::m_pSingleton = 0;
 //--------------------------------------------------------------------------------//
 
@@ -18,6 +19,9 @@ m_iHeight(a_iHeight)
 {
 	DEVMODE dmScreenSettings;
 	int posX, posY;
+
+	if(!a_bWindowed)
+		a_bHasBorder = false;
 
 	// Get the instance of this application.
 	m_hInstance = GetModuleHandle(0);
@@ -43,6 +47,10 @@ m_iHeight(a_iHeight)
 	m_iWidth  = GetSystemMetrics(SM_CXSCREEN);
 	m_iHeight = GetSystemMetrics(SM_CYSCREEN);
 
+	RECT kRect = {0,0,a_iWidth,a_iHeight};
+	int iBoarderWidth = 0;
+	int iBoarderHeight = 0;
+
 	// Setup the screen settings depending on whether it is running in full screen or in windowed mode.
 	if(!a_bWindowed)
 	{
@@ -62,9 +70,15 @@ m_iHeight(a_iHeight)
 	}
 	else
 	{
-		// If windowed then set it to 800x600 resolution.
 		m_iHeight	= a_iHeight;
 		m_iWidth	= a_iWidth;
+
+		if(a_bHasBorder)
+		{
+			AdjustWindowRect(&kRect,WS_OVERLAPPEDWINDOW,false);
+			iBoarderWidth = abs(kRect.left) + kRect.right - m_iWidth;
+			iBoarderHeight = abs(kRect.top) + kRect.bottom - m_iHeight;
+		}
 
 		// Place the window in the middle of the screen.
 		posX = (GetSystemMetrics(SM_CXSCREEN) - m_iWidth)  / 2;
@@ -73,13 +87,15 @@ m_iHeight(a_iHeight)
 
 	// Create the window with the screen settings and get the handle to it.
 	m_oHwnd = CreateWindowEx(WS_EX_APPWINDOW, a_szName, a_szName, 
-		a_bHasBorder ? WS_OVERLAPPEDWINDOW : WS_POPUP,
-		posX, posY, m_iWidth, m_iHeight, NULL, NULL, m_hInstance, NULL);
+		a_bHasBorder ? WS_OVERLAPPED | WS_CAPTION | WS_THICKFRAME | WS_SYSMENU : WS_POPUP,
+		posX, posY, m_iWidth + iBoarderWidth, m_iHeight + iBoarderHeight, NULL, NULL, m_hInstance, NULL);
 
 	// Bring the window up on the screen and set it as main focus.
 	ShowWindow(m_oHwnd, SW_SHOW);
 	SetForegroundWindow(m_oHwnd);
 	SetFocus(m_oHwnd);
+
+	OnDropFile = &Window::OnDropFileDef;
 }
 
 //--------------------------------------------------------------------------------//
@@ -133,14 +149,6 @@ bool Window::Tick()
 
 //--------------------------------------------------------------------------------//
 
-void Window::AttachMouse(lcMouse *a_pMouse)
-{
-	if(a_pMouse)
-		m_pMouse = a_pMouse;
-}
-
-//--------------------------------------------------------------------------------//
-
 bool Window::IsActive()
 {
 	return (GetFocus() == m_oHwnd);
@@ -169,26 +177,54 @@ HWND Window::GetHandle()
 
 //--------------------------------------------------------------------------------//
 
-int Window::GetWidth()
+int Window::Width()
 { 
-	return m_iWidth;
+	if(m_pSingleton)
+		return m_pSingleton->m_iWidth;
+	return 0;
 }
 //--------------------------------------------------------------------------------//
 
-int Window::GetHeight()
+int Window::Height()
 {
-	return m_iHeight;
+	if(m_pSingleton)
+		return m_pSingleton->m_iHeight;
+	return 0;
+}
+
+//--------------------------------------------------------------------------------//
+
+void Window::OnDropFileDef(const char* a_szFileName)
+{
+	UNREFERENCED_PARAMETER(a_szFileName);
+}
+
+void Window::EnableFileDrop(bool a_bEnable)
+{
+	DragAcceptFiles(m_oHwnd,a_bEnable);
+}
+
+lmVec2 Window::Position()
+{
+	lmVec2 kRetPos(0,0);
+
+	if(m_pSingleton)
+	{
+		RECT kWndRect;
+		GetWindowRect(m_pSingleton->m_oHwnd,&kWndRect);
+		kRetPos.Set((float)kWndRect.left,(float)kWndRect.top);
+	}
+	return kRetPos;
 }
 
 //--------------------------------------------------------------------------------//
 
 LRESULT CALLBACK Window::WindowProc(HWND Handle, unsigned int msg, WPARAM wParam, LPARAM lParam)
 {
+	TwEventWin(Handle,msg,wParam,lParam);
+
 	switch (msg)
 	{
-		//++++++++++++++++++++++++++++++++++++++++//
-		// Windows Messages
-		//++++++++++++++++++++++++++++++++++++++++//
 		case WM_SYSCOMMAND:
 			{
 				if (wParam == SC_CLOSE)
@@ -204,19 +240,32 @@ LRESULT CALLBACK Window::WindowProc(HWND Handle, unsigned int msg, WPARAM wParam
 				break;
 			}
 
-		//++++++++++++++++++++++++++++++++++++++++//
-		// Mosue Messages
-		//++++++++++++++++++++++++++++++++++++++++//
-
 		case WM_MOUSEWHEEL:
 			{
-				if(m_pMouse)
-					m_pMouse->m_uiScrollVal = GET_WHEEL_DELTA_WPARAM(wParam);
+				if(lcMouse::Get())
+					lcMouse::Get()->m_uiScrollVal = GET_WHEEL_DELTA_WPARAM(wParam);
 				break;
-			}	
+			}
+
+		case WM_DROPFILES:
+			{
+				HDROP hDrop = (HDROP)wParam;
+				int iFileCount = DragQueryFile(hDrop,0xFFFFFFFF, nullptr, MAX_PATH);
+				for(int i = 0;i < iFileCount;++i)
+				{
+					char a_szFileDir[256];
+					DragQueryFile(hDrop,i,a_szFileDir,MAX_PATH);
+					m_pSingleton->OnDropFile(a_szFileDir);
+				}
+				DragFinish(hDrop);
+				break;
+			}
+
+		default:
+			return DefWindowProc(Handle,msg,wParam,lParam);
 	};
 
-	return DefWindowProc(Handle,msg,wParam,lParam);
+	return 0;
 }
 
 //--------------------------------------------------------------------------------//

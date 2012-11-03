@@ -6,16 +6,18 @@
 //
 //--------------------------------------------------------------------------------//
 #ifndef __LCPROPERTY_H_
-#define __PROPERTY_H_
-//--------------------------------------------------------------------------------//
-#include <D3D11.h>
+#define __LCPROPERTY_H_
 //--------------------------------------------------------------------------------//
 
-enum PROPERTY_TYPES
+//--------------------------------------------------------------------------------//
+
+enum LC_PROPERTY_TYPES
 {
-	PROPERTY_SHADER,
-	PROPERTY_COUNT,
+	LC_PROPERTY_SHADER,
+	LC_PROPERTY_TEXTURE,
+	LC_PROPERTY_COUNT,
 };
+
 //--------------------------------------------------------------------------------//
 
 class Property
@@ -25,10 +27,10 @@ public:
 
 	virtual ~Property();
 
-	PROPERTY_TYPES GetType();
+	LC_PROPERTY_TYPES GetType();
 
 protected:
-	PROPERTY_TYPES m_eType;
+	LC_PROPERTY_TYPES m_eType;
 	
 };
 

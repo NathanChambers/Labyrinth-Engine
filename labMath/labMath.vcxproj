@@ -16,7 +16,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -37,17 +37,20 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)bin\</OutDir>
+    <OutDir>$(SolutionDir)bin\lib\</OutDir>
     <TargetName>$(ProjectName)_d</TargetName>
+    <IntDir>$(SolutionDir)\$(Configuration)\$(TargetName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)bin\</OutDir>
+    <OutDir>$(SolutionDir)bin\lib\</OutDir>
+    <IntDir>$(SolutionDir)\$(Configuration)\$(TargetName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>.\lmCore\;.\lmTransform\;.\lmMatrices\;.\lmVectors\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4201</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -104,6 +107,7 @@ xcopy "lmMatrices\*.inl" "..\bin\include\labMath\" /R /Y /Q</Command>
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="lmIspc\ispcMatrix4.ispc" />
     <None Include="lmIspc\ispcVec2.ispc" />
     <None Include="lmIspc\ispcVec3.ispc" />
     <None Include="lmIspc\ispcVec4.ispc" />
@@ -113,9 +117,10 @@ xcopy "lmMatrices\*.inl" "..\bin\include\labMath\" /R /Y /Q</Command>
     <None Include="lmVectors\lmVec4.inl" />
   </ItemGroup>
   <ItemGroup>
-    <Object Include="lmVectors\lmVec2.obj" />
-    <Object Include="lmVectors\lmVec3.obj" />
-    <Object Include="lmVectors\lmVec4.obj" />
+    <Object Include="lmIspc\lmMatrix4.obj" />
+    <Object Include="lmIspc\lmVec2.obj" />
+    <Object Include="lmIspc\lmVec3.obj" />
+    <Object Include="lmIspc\lmVec4.obj" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,13 +1,13 @@
 #include <Windows.h>
 #include "Application.h"
+#include "lcMemTracker.h"
 
 Application* g_pkApp;
-
-int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int iShowCmd)
+int main()
 {
 	g_pkApp = new Application();
 
-	g_pkApp->Create(lpCmdLine);
+	g_pkApp->Create();
 
 	g_pkApp->Execute();
 

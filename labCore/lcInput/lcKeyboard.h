@@ -16,14 +16,14 @@ class lcKeyboard
 public:
 	static lcKeyboard* Create();
 	static lcKeyboard* Get();
-	void Release();
 
+	void Release();
 	void Update();
 
-	bool IsKeyDown(short a_oKey);
-	bool IsKeyUp(short a_oKey);
-	bool IsKeyPressed(short a_oKey);
-	bool IsKeyReleased(short a_oKey);
+	static bool IsKeyDown(short a_oKey);
+	static bool IsKeyUp(short a_oKey);
+	static bool IsKeyPressed(short a_oKey);
+	static bool IsKeyReleased(short a_oKey);
 
 private:
 	lcKeyboard();

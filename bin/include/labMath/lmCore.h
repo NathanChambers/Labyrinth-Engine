@@ -3,15 +3,18 @@
 
 #include <math.h>
 
+//Boot Code
 #include "lmBoot.h"
+
+//Matrices
+#include "lmMatrix4.h"
 
 //Vectors
 #include "lmVec2.h"
 #include "lmVec3.h"
 #include "lmVec4.h"
 
-//Matrices
-#include "lmMatrix4.h"
+static const lmBoot gs_klmBoot;
 
 //Math Intrinsics
 enum LM_INTRIN_SET

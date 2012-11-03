@@ -8,8 +8,6 @@
 #ifndef __LCMOUSE_H_
 #define __LCMOUSE_H_
 //--------------------------------------------------------------------------------//
-#include "lcWindow.h"
-//--------------------------------------------------------------------------------//
 
 class lcMouse
 {
@@ -33,14 +31,15 @@ public:
 	void GetDeltaPosition(int& a_iX,int& a_iY);
 
 	void Show(bool a_bShow);
+	void LockToWindow(bool a_bLocked);
 
-	bool IsButtonDown(eBUTTONS a_uiButton);
-	bool IsButtonUp(eBUTTONS a_uiButton);
-	bool IsButtonPressed(eBUTTONS a_uiButton);
-	bool IsButtonReleased(eBUTTONS a_uiButton);
+	static bool IsButtonDown(eBUTTONS a_uiButton);
+	static bool IsButtonUp(eBUTTONS a_uiButton);
+	static bool IsButtonPressed(eBUTTONS a_uiButton);
+	static bool IsButtonReleased(eBUTTONS a_uiButton);
 
-	bool IsScrollingUp();
-	bool IsScrollingDown();
+	static bool IsScrollingUp();
+	static bool IsScrollingDown();
 
 private:
 	lcMouse();
@@ -59,6 +58,8 @@ private:
 
 	bool m_bScrollingUp;
 	bool m_bScrollingDown;
+
+	bool m_bScreenLocked;
 };
 
 //--------------------------------------------------------------------------------//

@@ -8,7 +8,7 @@
 //lmVec2 Dec
 class lmVec2
 {
-	friend class LmBoot;
+	friend class lmBoot;
 public:
 	//Constructors
 	lmVec2();

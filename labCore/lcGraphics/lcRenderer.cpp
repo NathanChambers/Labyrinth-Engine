@@ -6,6 +6,11 @@
 //
 //--------------------------------------------------------------------------------//
 #include "lcRenderer.h"
+#include "AntTweakBar.h"
+#include "lcMesh.h"
+#include "lcCamera.h"
+#include "lcTextureProperty.h"
+
 //--------------------------------------------------------------------------------//
 lcRenderer* lcRenderer::m_pSingleton = 0;
 //--------------------------------------------------------------------------------//
@@ -138,6 +143,7 @@ void lcRenderer::BeginFrame(D3DXCOLOR a_oColor)
 {
 	m_pDeviceContext->ClearRenderTargetView(m_pRenderTargetView,a_oColor);
 	m_pDeviceContext->ClearDepthStencilView(m_pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+	m_pDeviceContext->RSSetState(m_pRasterState);
 }
 
 //--------------------------------------------------------------------------------//
@@ -194,8 +200,8 @@ bool lcRenderer::Initialise(Window* a_pWindow)
 	DXGI_SWAP_CHAIN_DESC oSwapDesc;
 	ZeroMemory( &oSwapDesc, sizeof(oSwapDesc) );
 	oSwapDesc.BufferCount = 1;
-	oSwapDesc.BufferDesc.Width = a_pWindow->GetWidth();
-	oSwapDesc.BufferDesc.Height = a_pWindow->GetHeight();
+	oSwapDesc.BufferDesc.Width = Window::Width();
+	oSwapDesc.BufferDesc.Height = Window::Height();
 	oSwapDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 		oSwapDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
 		oSwapDesc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
@@ -267,8 +273,8 @@ bool lcRenderer::Initialise(Window* a_pWindow)
 	//Depth Stencil Descripter
 	D3D11_TEXTURE2D_DESC oDepthBufferDesc;
 	ZeroMemory(&oDepthBufferDesc, sizeof(oDepthBufferDesc));
-	oDepthBufferDesc.Width = a_pWindow->GetWidth();
-	oDepthBufferDesc.Height = a_pWindow->GetHeight();
+	oDepthBufferDesc.Width = Window::Width();
+	oDepthBufferDesc.Height = Window::Height();
 	oDepthBufferDesc.MipLevels = 1;
 	oDepthBufferDesc.ArraySize = 1;
 	oDepthBufferDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
@@ -339,7 +345,7 @@ bool lcRenderer::Initialise(Window* a_pWindow)
 	// Create the depth stencil view.
 	if(FAILED(m_pDevice->CreateDepthStencilView(m_pDepthStencilBuffer, &oDepthStencilViewDesc, &m_pDepthStencilView)))
 	{
-		Utilities::Debug_ConsoleWrite("FAILED TO CREATE SWAP CHAIN");
+		Utilities::Debug_ConsoleWrite("FAILED TO CREATE DEPTH STENCIL VIEW");
 		return 0;
 	}
 
@@ -352,7 +358,7 @@ bool lcRenderer::Initialise(Window* a_pWindow)
 	//Create Rasterizer Descripter
 	D3D11_RASTERIZER_DESC oRasterDesc;
 	ZeroMemory(&oRasterDesc, sizeof(oRasterDesc));
-	oRasterDesc.AntialiasedLineEnable = false;
+	oRasterDesc.AntialiasedLineEnable = true;
 	oRasterDesc.CullMode = D3D11_CULL_BACK;
 	oRasterDesc.DepthBias = 0;
 	oRasterDesc.DepthBiasClamp = 0.0f;
@@ -373,8 +379,8 @@ bool lcRenderer::Initialise(Window* a_pWindow)
 
 	//Create and Set View Port
 	D3D11_VIEWPORT oViewPort;	 
-	oViewPort.Width = (float)a_pWindow->GetWidth();
-	oViewPort.Height = (float)a_pWindow->GetHeight();
+	oViewPort.Width = (float)Window::Width();
+	oViewPort.Height = (float)Window::Height();
 	oViewPort.MinDepth = 0.0f;
 	oViewPort.MaxDepth = 1.0f;
 	oViewPort.TopLeftX = 0;
@@ -412,6 +418,13 @@ bool lcRenderer::Initialise(Window* a_pWindow)
 	D3DXMATRIX mViewProj;
 	D3DXMatrixIdentity(&mViewProj);
 	m_pDeviceContext->UpdateSubresource(m_pCBViewProj,0,NULL,&mViewProj,0,0);
+
+	//++++++++++++++++++++++++++++++++++++++++//
+	// Initialise Ant Tweak Bar For DX11
+	//++++++++++++++++++++++++++++++++++++++++//
+
+	TwInit(TW_DIRECT3D11,m_pDevice);
+	TwWindowSize(Window::Width(),Window::Height());
 	
 	return true;
 }
@@ -467,9 +480,17 @@ void lcRenderer::RenderNode(lcNode* a_pNode)
 	lcMesh* pMesh = dynamic_cast<lcMesh*>(a_pNode);
 	if(pMesh)
 	{
+		for(auto pPropIter = pMesh->m_aProperties.begin();pPropIter != pMesh->m_aProperties.end();++pPropIter)
+		{
+			lcTextureProperty* pkProp = dynamic_cast<lcTextureProperty*>((*pPropIter));
+			if(pkProp)
+			{
+				pkProp->SynchTextures();
+			}
+		}
+
 		//Update World Matrix
-		D3DXMATRIX mWorldMatrix;
-		pMesh->GetWorldTransform(mWorldMatrix);
+		D3DXMATRIX mWorldMatrix = a_pNode->GetTransform();
 		D3DXMatrixTranspose(&mWorldMatrix,&mWorldMatrix);
 
 		m_pDeviceContext->UpdateSubresource(m_pCBWorld,0,NULL,&mWorldMatrix,0,0);
@@ -484,7 +505,6 @@ void lcRenderer::RenderNode(lcNode* a_pNode)
 		m_pDeviceContext->IASetVertexBuffers(0,1,&pMesh->m_pVertexBuffer,&pMesh->m_uiStride,&pMesh->m_uiOffset);
 		m_pDeviceContext->IASetIndexBuffer(pMesh->m_pIndexBuffer,DXGI_FORMAT_R32_UINT,0);
 		m_pDeviceContext->IASetPrimitiveTopology(pMesh->m_oTopology);
-
 
 		//Render
 		m_pDeviceContext->DrawIndexed(pMesh->m_uiIndexCount,0,0);

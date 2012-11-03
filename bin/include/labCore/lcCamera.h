@@ -28,7 +28,7 @@ public:
 	void Release();
 
 	void Update();
-	static void FreeLookCamera(lcCamera* TargetCamera,float MovementSpeed);
+	static void FreeLookCamera(lcCamera* TargetCamera,float MovementSpeed,float a_fSensitivity);
 
 	void LookAt(D3DXVECTOR3 Target);
 
@@ -43,6 +43,9 @@ private:
 	lcFrustrum m_oFustrum;
 	D3DXMATRIX m_mView;
 	D3DXMATRIX m_mProj;
+	D3DXMATRIX m_mViewProj;
+
+	float m_fMovementBoost;
 };
 
 //--------------------------------------------------------------------------------//

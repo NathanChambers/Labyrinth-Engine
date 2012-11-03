@@ -8,7 +8,7 @@ LARGE_INTEGER kStart;
 LARGE_INTEGER kEnd;
 LARGE_INTEGER kFreq;
 
-const int TEST_ITERATIONS = 16000000;
+const int TEST_ITERATIONS = 1600000;
 const float FLOAT_TOLLERANCE = 0.0001f;
 bool PRINT_RESULTS = false;
 
@@ -159,17 +159,17 @@ int main()
 {
 	_CrtDumpMemoryLeaks();
 
-	while(true)
+	bool bRunning = true;
+	while(bRunning)
 	{
 		lmSetIntrinsic(LM_INTRIN_STD);
 		printf("STD TEST \n");
 		QueryPerformanceFrequency(&kFreq);
 		QueryPerformanceCounter(&kStart);
 
-		for(int i = 0;i < TEST_ITERATIONS;i++)
+		for(int i = 0;i < TEST_ITERATIONS;++i)
 		{
-			lmVec4 kVec0(1,1,1,1);
-			kVec0.Normalise();
+			Vec4Testing();
 		}
 
 		QueryPerformanceCounter(&kEnd);
@@ -182,10 +182,9 @@ int main()
 		QueryPerformanceFrequency(&kFreq);
 		QueryPerformanceCounter(&kStart);
 
-		for(int i = 0;i < TEST_ITERATIONS;i++)
+		for(int i = 0;i < TEST_ITERATIONS;++i)
 		{
-			lmVec4 kVec0(1,1,1,1);
-			kVec0.Normalise();
+			Vec4Testing();
 		}
 
 		QueryPerformanceCounter(&kEnd);

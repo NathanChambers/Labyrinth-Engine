@@ -40,21 +40,30 @@ void lcTime::Update()
 
 	if(m_liPrev.QuadPart)
 	{
-		m_dDelta = (double)(liCurr.QuadPart - m_liPrev.QuadPart) / liFreq.QuadPart;
-		if(m_dDelta > 1)
+		m_fDelta = (float)(liCurr.QuadPart - m_liPrev.QuadPart) / liFreq.QuadPart;
+		if(m_fDelta > 1)
 		{
-			m_dDelta = 1;
+			m_fDelta = 1;
+		}
+		else
+		{
+			m_fElapsed += m_fDelta;
 		}
 	}
 	else
 	{
-		m_dDelta = 0;
+		m_fDelta = 0;
 	}
 
 	m_liPrev = liCurr;
 }
 
-double lcTime::DeltaTime()
+float lcTime::DeltaTime()
 {
-	return m_pSingleton->m_dDelta;
+	return m_pSingleton->m_fDelta;
+}
+
+float lcTime::ElapsedTime()
+{
+	return m_pSingleton->m_fElapsed;
 }

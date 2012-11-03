@@ -24,7 +24,7 @@ public:
 
 	static AppBase* GetSingleton()	{	return sm_pSingleton;	}
 
-	bool	Create(const char* a_sCmdLine);
+	bool	Create();
 
 	void	Execute();
 
@@ -34,7 +34,7 @@ public:
 
 protected:
 
-	virtual bool	OnCreate(const char* a_sCmdLine) = 0;
+	virtual bool	OnCreate() = 0;
 	virtual bool	OnUpdate() = 0;
 	virtual void	OnDestroy() = 0;
 	virtual void	OnRender() = 0;

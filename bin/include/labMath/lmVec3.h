@@ -8,7 +8,7 @@
 //lmVec3 Dec
 class lmVec3
 {
-	friend class LmBoot;
+	friend class lmBoot;
 public:
 	//Constructors
 	lmVec3();
@@ -17,6 +17,7 @@ public:
 	lmVec3(float* a_afVector);
 	lmVec3& operator = (const lmVec3& ac_rkCopy);
 	lmVec3& operator = (float* a_afVector);
+	lmVec3& operator = (const float* ac_afVector);
 	~lmVec3();
 
 	//Class Data

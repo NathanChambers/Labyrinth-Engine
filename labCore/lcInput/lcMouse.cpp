@@ -6,7 +6,7 @@
 //
 //--------------------------------------------------------------------------------//
 #include "lcMouse.h"
-
+#include "lcWindow.h"
 //--------------------------------------------------------------------------------//
 lcMouse* lcMouse::m_pSingleton = 0;
 //--------------------------------------------------------------------------------//
@@ -31,6 +31,8 @@ lcMouse::lcMouse()
 	m_uiScrollVal = 0;
 	m_bScrollingUp = false;
 	m_bScrollingDown = false;
+
+	m_bScreenLocked = false;
 }
 
 //--------------------------------------------------------------------------------//
@@ -69,6 +71,20 @@ void lcMouse::Release()
 #include <assert.h>
 void lcMouse::Update()
 {
+	if (!Window::Get()->IsActive())
+		return;
+
+	if(m_bScreenLocked)
+	{
+		RECT kWndRect;
+		GetWindowRect(Window::Get()->GetHandle(),&kWndRect);
+		ClipCursor(&kWndRect);
+	}
+	else
+	{
+		ClipCursor(nullptr);
+	}
+
 	m_iXPrev = m_iXCurr;
 	m_iYPrev = m_iYCurr;
 
@@ -103,6 +119,8 @@ void lcMouse::Update()
 		m_bScrollingUp = false;
 		m_bScrollingDown = false;
 	}
+
+
 
 	m_uiScrollVal = 0;
 }
@@ -154,7 +172,7 @@ void lcMouse::GetDeltaPosition(int& a_iX,int& a_iY)
 
 bool lcMouse::IsButtonDown(eBUTTONS a_uiButton)
 {
-	if(m_bButtonCurr[a_uiButton] && m_bButtonPrev[a_uiButton])
+	if(m_pSingleton->m_bButtonCurr[a_uiButton] && m_pSingleton->m_bButtonPrev[a_uiButton])
 	{
 		return true;
 	}
@@ -165,7 +183,7 @@ bool lcMouse::IsButtonDown(eBUTTONS a_uiButton)
 
 bool lcMouse::IsButtonUp(eBUTTONS a_uiButton)
 {
-	if(!m_bButtonCurr[a_uiButton] && !m_bButtonPrev[a_uiButton])
+	if(!m_pSingleton->m_bButtonCurr[a_uiButton] && !m_pSingleton->m_bButtonPrev[a_uiButton])
 	{
 		return true;
 	}
@@ -176,7 +194,7 @@ bool lcMouse::IsButtonUp(eBUTTONS a_uiButton)
 
 bool lcMouse::IsButtonPressed(eBUTTONS a_uiButton)
 {
-	if(m_bButtonCurr[a_uiButton] && !m_bButtonPrev[a_uiButton])
+	if(m_pSingleton->m_bButtonCurr[a_uiButton] && !m_pSingleton->m_bButtonPrev[a_uiButton])
 	{
 		return true;
 	}
@@ -187,7 +205,7 @@ bool lcMouse::IsButtonPressed(eBUTTONS a_uiButton)
 
 bool lcMouse::IsButtonReleased(eBUTTONS a_uiButton)
 {
-	if(!m_bButtonCurr[a_uiButton] && m_bButtonPrev[a_uiButton])
+	if(!m_pSingleton->m_bButtonCurr[a_uiButton] && m_pSingleton->m_bButtonPrev[a_uiButton])
 	{
 		return true;
 	}
@@ -198,14 +216,19 @@ bool lcMouse::IsButtonReleased(eBUTTONS a_uiButton)
 
 bool lcMouse::IsScrollingUp()
 {
-	return m_bScrollingUp;
+	return m_pSingleton->m_bScrollingUp;
 }
 
 //--------------------------------------------------------------------------------//
 
 bool lcMouse::IsScrollingDown()
 {
-	return m_bScrollingDown;
+	return m_pSingleton->m_bScrollingDown;
 }
 
 //--------------------------------------------------------------------------------//
+
+void lcMouse::LockToWindow(bool a_bLocked)
+{
+	m_bScreenLocked = a_bLocked;
+}

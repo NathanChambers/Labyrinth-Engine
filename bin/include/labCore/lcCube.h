@@ -9,69 +9,73 @@
 #define __CUBE_H_
 //--------------------------------------------------------------------------------//
 #include "lcMesh.h"
+#include "lmVec3.h"
+
 //--------------------------------------------------------------------------------//
-lcNode* CreateCube()
+lcNode* CreateCube(lmVec3 a_kPosition,lmVec3 a_kSize)
 {
 	lcMesh* pMesh = new lcMesh("Cube");
 
 	struct Vertex
 	{
 		D3DXVECTOR3 vPosition;
-		D3DXVECTOR4 vColor;
+		D3DXVECTOR2 vUV;
 	};
 
 	Vertex aVerticies[] = 
 	{
-		//0 Front Top Left
-		{D3DXVECTOR3(-0.5f,0.5f,-0.5f),	D3DXVECTOR4(1.0f,0.0f,0.0f,1.0f)},
+		//Front
+		{D3DXVECTOR3(-a_kSize.x,-a_kSize.y,-a_kSize.z),	D3DXVECTOR2(0,1)},
+		{D3DXVECTOR3(-a_kSize.x,a_kSize.y,-a_kSize.z),	D3DXVECTOR2(0,0)},
+		{D3DXVECTOR3(a_kSize.x,a_kSize.y,-a_kSize.z),	D3DXVECTOR2(1,0)},	
+		{D3DXVECTOR3(a_kSize.x,-a_kSize.y,-a_kSize.z),	D3DXVECTOR2(1,1)},
 
-		//1 Front Top Right
-		{D3DXVECTOR3(0.5f,0.5f,-0.5f),	D3DXVECTOR4(0.0f,1.0f,0.0f,1.0f)},	
+		//Back
+		{D3DXVECTOR3(-a_kSize.x,-a_kSize.y,a_kSize.z),	D3DXVECTOR2(1,1)},
+		{D3DXVECTOR3(a_kSize.x,-a_kSize.y,a_kSize.z),	D3DXVECTOR2(0,1)},
+		{D3DXVECTOR3(a_kSize.x,a_kSize.y,a_kSize.z),	D3DXVECTOR2(0,0)},	
+		{D3DXVECTOR3(-a_kSize.x,a_kSize.y,a_kSize.z),	D3DXVECTOR2(1,0)},
 
-		//2 Front Bottom Right
-		{D3DXVECTOR3(0.5f,-0.5f,-0.5f),	D3DXVECTOR4(0.0f,0.0f,1.0f,1.0f)},
+		//Top
+		{D3DXVECTOR3(-a_kSize.x,a_kSize.y,-a_kSize.z),	D3DXVECTOR2(0,1)},
+		{D3DXVECTOR3(-a_kSize.x,a_kSize.y,a_kSize.z),	D3DXVECTOR2(0,0)},
+		{D3DXVECTOR3(a_kSize.x,a_kSize.y,a_kSize.z),	D3DXVECTOR2(1,0)},	
+		{D3DXVECTOR3(a_kSize.x,a_kSize.y,-a_kSize.z),	D3DXVECTOR2(1,1)},
+		
+		//Bottom
+		{D3DXVECTOR3(-a_kSize.x,-a_kSize.y,-a_kSize.z),	D3DXVECTOR2(1,1)},
+		{D3DXVECTOR3(a_kSize.x,-a_kSize.y,-a_kSize.z),	D3DXVECTOR2(0,1)},
+		{D3DXVECTOR3(a_kSize.x,-a_kSize.y,a_kSize.z),	D3DXVECTOR2(0,0)},	
+		{D3DXVECTOR3(-a_kSize.x,-a_kSize.y,a_kSize.z),	D3DXVECTOR2(1,0)},
 
-		//3 Front Bottom Left
-		{D3DXVECTOR3(-0.5f,-0.5f,-0.5f),D3DXVECTOR4(0.0f,0.0f,0.0f,1.0f)},
+		//Left
+		{D3DXVECTOR3(-a_kSize.x,-a_kSize.y,a_kSize.z),	D3DXVECTOR2(0,1)},
+		{D3DXVECTOR3(-a_kSize.x,a_kSize.y,a_kSize.z),	D3DXVECTOR2(0,0)},
+		{D3DXVECTOR3(-a_kSize.x,a_kSize.y,-a_kSize.z),	D3DXVECTOR2(1,0)},	
+		{D3DXVECTOR3(-a_kSize.x,-a_kSize.y,-a_kSize.z),	D3DXVECTOR2(1,1)},
 
-		//4 Back Top Left
-		{D3DXVECTOR3(-0.5f,0.5f,0.5f),	D3DXVECTOR4(1.0f,0.0f,0.0f,1.0f)},
-
-		//5 Back Top Right
-		{D3DXVECTOR3(0.5f,0.5f,0.5f),	D3DXVECTOR4(0.0f,1.0f,0.0f,1.0f)},	
-
-		//6 Back Bottom Right
-		{D3DXVECTOR3(0.5f,-0.5f,0.5f),	D3DXVECTOR4(0.0f,0.0f,1.0f,1.0f)},
-
-		//7 Back Bottom Left
-		{D3DXVECTOR3(-0.5f,-0.5f,0.5f),D3DXVECTOR4(1.0f,1.0f,1.0f,1.0f)},
+		//Right
+		{D3DXVECTOR3(a_kSize.x,-a_kSize.y,-a_kSize.z),	D3DXVECTOR2(0,1)},
+		{D3DXVECTOR3(a_kSize.x,a_kSize.y,-a_kSize.z),	D3DXVECTOR2(0,0)},
+		{D3DXVECTOR3(a_kSize.x,a_kSize.y,a_kSize.z),	D3DXVECTOR2(1,0)},	
+		{D3DXVECTOR3(a_kSize.x,-a_kSize.y,a_kSize.z),	D3DXVECTOR2(1,1)},
+		
 	};
 
 	unsigned int aIndicies[] =
 	{
-		//Front
-		0,1,3,
-		3,1,2,
-
-		//Right
-		1,5,2,
-		2,5,6,
-
-		//Back
-		5,4,6,
-		6,4,7,
-
-		//Left
-		4,0,7,
-		7,0,3,
-
-		//Bottom
-		3,2,7,
-		7,2,6,
-
-		//Top
-		4,5,0,
-		0,5,1
+		0,1,2,
+		0,2,3,
+		4,5,6,
+		4,6,7,
+		8,9,10,
+		8,10,11,
+		12,13,14,
+		12,14,15,
+		16,17,18,
+		16,18,19,
+		20,21,22,
+		20,22,23,
 	};
 
 	unsigned int uiVertexCount = ARRAYSIZE(aVerticies);
@@ -114,6 +118,8 @@ lcNode* CreateCube()
 
 	//////////////////////////////////////////////////////////////////////////
 	//Cast it to a lcNode
+	pMesh->SetTranslate(a_kPosition.v);
+
 	lcNode* pNode = dynamic_cast<lcNode*>(pMesh);
 	return pNode;
 }

@@ -5,66 +5,55 @@
 
 class lmMatrix4
 {
-	friend LmBoot;
+	friend class lmBoot;
 public:
 	lmMatrix4();
-	lmMatrix4(const lmMatrix4&);
-	lmMatrix4(float a_f00,float a_f01,float a_f02,float a_f03,
-		float a_f10,float a_f11,float a_f12,float a_f13,
-		float a_f20,float a_f21,float a_f22,float a_f23,
-		float a_f30,float a_f31,float a_f32,float a_f33);
+	lmMatrix4(	float a_f11,float a_f12,float a_f13,float a_f14,
+				float a_f21,float a_f22,float a_f23,float a_f24,
+				float a_f31,float a_f32,float a_f33,float a_f34,
+				float a_f41,float a_f42,float a_f43,float a_f44);
 
 	~lmMatrix4();
-
-	void operator = (const lmMatrix4& a_rkCopy);
-
-	void Set(float a_f00,float a_f01,float a_f02,float a_f03,
-		float a_f10,float a_f11,float a_f12,float a_f13,
-		float a_f20,float a_f21,float a_f22,float a_f23,
-		float a_f30,float a_f31,float a_f32,float a_f33);
 
 	union
 	{
 		struct
 		{
-			float m_f00;
-			float m_f01;
-			float m_f02;
-			float m_f03;
-
-			float m_f10;
 			float m_f11;
 			float m_f12;
 			float m_f13;
+			float m_f14;
 
-			float m_f20;
 			float m_f21;
 			float m_f22;
 			float m_f23;
+			float m_f24;
 
-			float m_f30;
 			float m_f31;
 			float m_f32;
 			float m_f33;
+			float m_f34;
+
+			float m_f41;
+			float m_f42;
+			float m_f43;
+			float m_f44;
 		};
-
-		float m_m[4][4];
-		float m_v[16];
 		
+		float m_v[16];
+		float m_m[4][4];
+	
 	};
-
-	lmVec4 GetRow(int a_iRowIndex);
-	lmVec4 GetCol(int a_iColIndex);
-
-	void SetRow(const lmVec4& a_rkRow,int a_iRowIndex);
-	void SetCol(const lmVec4& a_rkCol,int a_iColIndex);
 
 	void MakeXRotate(float a_fTheta);
 	void MakeYRotate(float a_fTheta);
 	void MakeZRotate(float a_fTheta);
 
-	lmMatrix4 operator * (const lmMatrix4& a_rkArgL);
-	lmMatrix4& operator *= (const lmMatrix4& a_rkArgL);
+	operator float* ();
+	operator const float* () const;
+
+	lmMatrix4 operator * (const lmMatrix4&);
+	lmMatrix4& operator *= (const lmMatrix4&);
 
 	static const lmMatrix4 IDENTITY;
 

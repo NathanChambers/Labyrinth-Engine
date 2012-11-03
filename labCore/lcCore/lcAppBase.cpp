@@ -40,9 +40,9 @@ void AppBase::Execute()
 
 //--------------------------------------------------------------------------------//
 
-bool AppBase::Create(const char* cmdLine)
+bool AppBase::Create()
 {
-	if (OnCreate(cmdLine) == true)
+	if (OnCreate() == true)
 	{
 		m_uiFlags |= FLAGS_CREATED;
 		return true;

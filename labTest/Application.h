@@ -18,21 +18,20 @@ public:
 	Application();
 	~Application();
 
-	bool OnCreate(const char* a_sCmdLine);
+	bool OnCreate();
 	void OnDestroy();
 	bool OnUpdate();
 	void OnRender();
 
 private:
 	Window*			m_pWindow;
-	lcRenderer*	m_pRenderer;
+	lcRenderer*		m_pRenderer;
 
 	lcKeyboard*		m_pKeyboard;
-	lcMouse*			m_pMouse;
+	lcMouse*		m_pMouse;
 
 	lcCamera*		m_pCamera;
 	ShaderProperty* m_pShaderProp;
-	lcNode*			m_pScene;
 };
 
 #endif

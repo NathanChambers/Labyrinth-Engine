@@ -10,9 +10,8 @@
 //--------------------------------------------------------------------------------//
 #include <D3D11.h>
 
-#include "lcCamera.h"
 #include "lcWindow.h"
-#include "lcMesh.h"
+#include "lcNode.h"
 //--------------------------------------------------------------------------------//
 
 struct CBWorld
@@ -41,7 +40,7 @@ public:
 
 	void BeginFrame(D3DXCOLOR ClearColor);
 	void EndFrame();
-	void DrawScene(lcCamera* Camera,lcNode* SceneNode);
+	void DrawScene(class lcCamera* Camera,lcNode* SceneNode);
 
 private:
 	lcRenderer();

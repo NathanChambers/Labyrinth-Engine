@@ -1,10 +1,10 @@
 #ifndef __LAB_BOOT_H_
 #define __LAB_BOOT_H_
 
-class LmBoot
+class lmBoot
 {
 public:
-	LmBoot();
+	lmBoot();
 	void Reboot() const;
 
 private:
